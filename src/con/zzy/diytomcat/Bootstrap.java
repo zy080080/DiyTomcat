@@ -1,6 +1,7 @@
 package con.zzy.diytomcat;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.NetUtil;
 import cn.hutool.core.util.StrUtil;
@@ -25,10 +26,10 @@ public class Bootstrap {
             logJVM();
 
             int port = 18080;
-            if (!NetUtil.isUsableLocalPort(port)) {
-                System.out.println("ポートがすでに使用されている。");
-                return;
-            }
+//            if (!NetUtil.isUsableLocalPort(port)) {
+//                System.out.println("ポートがすでに使用されている。");
+//                return;
+//            }
             ServerSocket serverSocket = new ServerSocket(port);
             while (true) {
                 Socket socket = serverSocket.accept();
@@ -52,6 +53,13 @@ public class Bootstrap {
                     if (file.exists()) {
                         String fileContent = FileUtil.readUtf8String(file);
                         response.getWriter().println(fileContent);
+
+                        if(fileName.equals("timeConsume.html")){
+                            // この後のマルチスレッドのために用意したもの，
+                            // 実際の場合はWebページにアクセスするときに，データベースに接続など，時間がかかる作業がある。
+                            // ここでtimeConsume.htmlにアクセスするために1秒かかると想定
+                            ThreadUtil.sleep(1000);
+                        }
                     } else {
                         response.getWriter().println("File Not Found");
                     }
