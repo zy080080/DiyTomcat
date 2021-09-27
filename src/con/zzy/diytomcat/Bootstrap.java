@@ -10,6 +10,7 @@ import cn.hutool.system.SystemUtil;
 import con.zzy.diytomcat.http.Request;
 import con.zzy.diytomcat.http.Response;
 import con.zzy.diytomcat.util.Constant;
+import con.zzy.diytomcat.util.ThreadPoolUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,45 +27,52 @@ public class Bootstrap {
             logJVM();
 
             int port = 18080;
-//            if (!NetUtil.isUsableLocalPort(port)) {
-//                System.out.println("ポートがすでに使用されている。");
-//                return;
-//            }
             ServerSocket serverSocket = new ServerSocket(port);
             while (true) {
                 Socket socket = serverSocket.accept();
-                Request request = new Request(socket);
-                System.out.println("ブラウザインプット情報：\r\n" + request.getRequestString());
-                System.out.println("uri:" + request.getUri());
+                Runnable r = new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Request request = new Request(socket);
+                            System.out.println("ブラウザインプット情報：\r\n" + request.getRequestString());
+                            System.out.println("uri:" + request.getUri());
 
-                // ヘッダーとメッセージボディを分ける理由：
-                // これからの作業でヘッダに対して複雑な処理を行う。ボディーに対しても二進のファイルやgzip圧縮の処理を行うため。
-                Response response = new Response();
-                String uri = request.getUri();
-                if (null == uri) continue;
-                System.out.println(uri);
+                            // ヘッダーとメッセージボディを分ける理由：
+                            // これからの作業でヘッダに対して複雑な処理を行う。ボディーに対しても二進のファイルやgzip圧縮の処理を行うため。
+                            Response response = new Response();
+                            String uri = request.getUri();
+                            if (null == uri) return;
+                            System.out.println(uri);
 
-                if ("/".equals(uri)) {
-                    String html = "Hello DIY Tomcat from zzy";
-                    response.getWriter().println(html);
-                } else {
-                    String fileName = StrUtil.removePrefix(uri, "/");
-                    File file = FileUtil.file(Constant.rootFolder, fileName);
-                    if (file.exists()) {
-                        String fileContent = FileUtil.readUtf8String(file);
-                        response.getWriter().println(fileContent);
+                            if ("/".equals(uri)) {
+                                String html = "Hello DIY Tomcat from zzy";
+                                response.getWriter().println(html);
+                            } else {
+                                String fileName = StrUtil.removePrefix(uri, "/");
+                                File file = FileUtil.file(Constant.rootFolder, fileName);
+                                if (file.exists()) {
+                                    String fileContent = FileUtil.readUtf8String(file);
+                                    response.getWriter().println(fileContent);
 
-                        if(fileName.equals("timeConsume.html")){
-                            // この後のマルチスレッドのために用意したもの，
-                            // 実際の場合はWebページにアクセスするときに，データベースに接続など，時間がかかる作業がある。
-                            // ここでtimeConsume.htmlにアクセスするために1秒かかると想定
-                            ThreadUtil.sleep(1000);
+                                    if (fileName.equals("timeConsume.html")) {
+                                        // この後のマルチスレッドのために用意したもの，
+                                        // 実際の場合はWebページにアクセスするときに，データベースに接続など，時間がかかる作業がある。
+                                        // ここでtimeConsume.htmlにアクセスするために1秒かかると想定
+                                        ThreadUtil.sleep(1000);
+                                    }
+                                } else {
+                                    response.getWriter().println("File Not Found");
+                                }
+                            }
+
+                            handle200(socket, response);
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                    } else {
-                        response.getWriter().println("File Not Found");
                     }
-                }
-                handle200(socket, response);
+                };
+                ThreadPoolUtil.run(r);
             }
         } catch (IOException e) {
             LogFactory.get().error(e);
@@ -85,7 +93,7 @@ public class Bootstrap {
         infos.put("JVM Vendor", SystemUtil.get("java.vm.specification.vendor"));
 
         Set<String> keys = infos.keySet();
-        for(String key : keys){
+        for (String key : keys) {
             LogFactory.get().info(key + "\t\t" + infos.get(key));
         }
     }

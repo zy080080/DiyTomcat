@@ -56,7 +56,7 @@ public class TestTomcat {
         threadPool.awaitTermination(1, TimeUnit.HOURS);
 
         long duration = timeInterval.intervalMs();
-        Assert.assertTrue(duration > 3000);
+        Assert.assertTrue(duration < 3000);
     }
 
     private String getContentString(String uri){
