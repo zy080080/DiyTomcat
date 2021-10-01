@@ -1,18 +1,44 @@
-09 27, 2021 21:38:28 下午 con.zzy.diytomcat.Bootstrap logJVM
+10 01, 2021 00:01:25 上午 con.zzy.diytomcat.Bootstrap logJVM
 INFO : Server version		zzy DiyTomcat/1.0.1
-09 27, 2021 21:38:28 下午 con.zzy.diytomcat.Bootstrap logJVM
+10 01, 2021 00:01:25 上午 con.zzy.diytomcat.Bootstrap logJVM
 INFO : Server built		2021-09-26 15:28:13
-09 27, 2021 21:38:28 下午 con.zzy.diytomcat.Bootstrap logJVM
+10 01, 2021 00:01:25 上午 con.zzy.diytomcat.Bootstrap logJVM
 INFO : Server number		1.0.1
-09 27, 2021 21:38:28 下午 con.zzy.diytomcat.Bootstrap logJVM
+10 01, 2021 00:01:25 上午 con.zzy.diytomcat.Bootstrap logJVM
 INFO : OS Name			Mac OS X
-09 27, 2021 21:38:28 下午 con.zzy.diytomcat.Bootstrap logJVM
+10 01, 2021 00:01:25 上午 con.zzy.diytomcat.Bootstrap logJVM
 INFO : OS Version		11.5
-09 27, 2021 21:38:28 下午 con.zzy.diytomcat.Bootstrap logJVM
+10 01, 2021 00:01:25 上午 con.zzy.diytomcat.Bootstrap logJVM
 INFO : Architecture		null
-09 27, 2021 21:38:28 下午 con.zzy.diytomcat.Bootstrap logJVM
+10 01, 2021 00:01:25 上午 con.zzy.diytomcat.Bootstrap logJVM
 INFO : Java Home		/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
-09 27, 2021 21:38:28 下午 con.zzy.diytomcat.Bootstrap logJVM
+10 01, 2021 00:01:25 上午 con.zzy.diytomcat.Bootstrap logJVM
 INFO : JVM Version		11.0.11+9-LTS
-09 27, 2021 21:38:28 下午 con.zzy.diytomcat.Bootstrap logJVM
+10 01, 2021 00:01:25 上午 con.zzy.diytomcat.Bootstrap logJVM
 INFO : JVM Vendor		Oracle Corporation
+10 01, 2021 13:12:00 下午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : Server version		zzy DiyTomcat/1.0.1
+10 01, 2021 13:12:00 下午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : Server built		2021-09-26 15:28:13
+10 01, 2021 13:12:00 下午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : Server number		1.0.1
+10 01, 2021 13:12:00 下午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : OS Name			Mac OS X
+10 01, 2021 13:12:00 下午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : OS Version		11.5
+10 01, 2021 13:12:00 下午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : Architecture		null
+10 01, 2021 13:12:00 下午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : Java Home		/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
+10 01, 2021 13:12:00 下午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : JVM Version		11.0.11+9-LTS
+10 01, 2021 13:12:00 下午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : JVM Vendor		Oracle Corporation
+10 01, 2021 13:12:00 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a
+10 01, 2021 13:12:00 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a has finished in 1 ms
+10 01, 2021 13:12:00 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT
+10 01, 2021 13:12:00 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT has finished in 0 ms

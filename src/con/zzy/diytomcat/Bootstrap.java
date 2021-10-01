@@ -7,6 +7,7 @@ import cn.hutool.core.util.NetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.LogFactory;
 import cn.hutool.system.SystemUtil;
+import con.zzy.diytomcat.catalina.Context;
 import con.zzy.diytomcat.http.Request;
 import con.zzy.diytomcat.http.Response;
 import con.zzy.diytomcat.util.Constant;
@@ -17,14 +18,19 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class Bootstrap {
+    public static Map<String, Context> contextMap = new HashMap<>();
+
     public static void main(String[] args) {
         try {
             logJVM();
+
+            scanContextsOnWebAppsFolder();
 
             int port = 18080;
             ServerSocket serverSocket = new ServerSocket(port);
@@ -38,6 +44,8 @@ public class Bootstrap {
                             System.out.println("ブラウザインプット情報：\r\n" + request.getRequestString());
                             System.out.println("uri:" + request.getUri());
 
+                            Context context = request.getContext();
+
                             // ヘッダーとメッセージボディを分ける理由：
                             // これからの作業でヘッダに対して複雑な処理を行う。ボディーに対しても二進のファイルやgzip圧縮の処理を行うため。
                             Response response = new Response();
@@ -50,7 +58,7 @@ public class Bootstrap {
                                 response.getWriter().println(html);
                             } else {
                                 String fileName = StrUtil.removePrefix(uri, "/");
-                                File file = FileUtil.file(Constant.rootFolder, fileName);
+                                File file = FileUtil.file(context.getDocBase(), fileName);
                                 if (file.exists()) {
                                     String fileContent = FileUtil.readUtf8String(file);
                                     response.getWriter().println(fileContent);
@@ -78,6 +86,26 @@ public class Bootstrap {
             LogFactory.get().error(e);
             e.printStackTrace();
         }
+    }
+
+    private static void scanContextsOnWebAppsFolder(){
+        File[] folders = Constant.webappsFolder.listFiles();
+        for(File folder : folders){
+            if(!folder.isDirectory()){continue;}
+            loadContext(folder);
+        }
+    }
+
+    private static void loadContext(File folder){
+        String path = folder.getName();
+        if("ROOT".equals(path)){
+            path = "/";
+        }else{
+            path = "/" + path;
+        }
+        String docBase = folder.getAbsolutePath();
+        Context context = new Context(path, docBase);
+        contextMap.put(context.getPath(), context);
     }
 
     private static void logJVM() {
