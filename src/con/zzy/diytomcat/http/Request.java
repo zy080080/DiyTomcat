@@ -1,6 +1,7 @@
 package con.zzy.diytomcat.http;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.useragent.OS;
 import con.zzy.diytomcat.Bootstrap;
 import con.zzy.diytomcat.catalina.Context;
 import con.zzy.diytomcat.util.MiniBrowser;
@@ -46,6 +47,18 @@ public class Request {
         InputStream inputStream = this.socket.getInputStream();
         byte[] bytes = MiniBrowser.readBytes(inputStream);
         requestString = new String(bytes, "utf-8");
+        /**
+         * 例：
+         * GET /b/index.html HTTP/1.1
+         * Host: 127.0.0.1:18080
+         * Upgrade-Insecure-Requests: 1
+         * Accept: text/html,application/xhtml+xml,application/xml;q=0.9,asterisk/asterisk;q = 0.8
+         * User - Agent:Mozilla / 5.0 (Macintosh; Intel Mac OS X 10_15_7)AppleWebKit / 605.1 .15 (KHTML, like
+            Gecko)Version / 14.1 .2 Safari / 605.1 .15
+         * Accept - Language:zh - cn
+         * Accept - Encoding:gzip, deflate
+         * Connection:keep - alive
+         */
     }
 
     private void parseUri(){

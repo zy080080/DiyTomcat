@@ -11,6 +11,7 @@ import con.zzy.diytomcat.catalina.Context;
 import con.zzy.diytomcat.http.Request;
 import con.zzy.diytomcat.http.Response;
 import con.zzy.diytomcat.util.Constant;
+import con.zzy.diytomcat.util.ServerXMLUtil;
 import con.zzy.diytomcat.util.ThreadPoolUtil;
 
 import java.io.File;
@@ -18,10 +19,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Bootstrap {
     public static Map<String, Context> contextMap = new HashMap<>();
@@ -31,6 +29,7 @@ public class Bootstrap {
             logJVM();
 
             scanContextsOnWebAppsFolder();
+            scanContextsInServerXML();
 
             int port = 18080;
             ServerSocket serverSocket = new ServerSocket(port);
@@ -85,6 +84,13 @@ public class Bootstrap {
         } catch (IOException e) {
             LogFactory.get().error(e);
             e.printStackTrace();
+        }
+    }
+
+    private static void scanContextsInServerXML() {
+        List<Context> contexts = ServerXMLUtil.getContexts();
+        for (Context context : contexts) {
+            contextMap.put(context.getPath(), context);
         }
     }
 
