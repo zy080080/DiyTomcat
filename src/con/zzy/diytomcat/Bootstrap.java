@@ -8,6 +8,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.LogFactory;
 import cn.hutool.system.SystemUtil;
 import con.zzy.diytomcat.catalina.Context;
+import con.zzy.diytomcat.catalina.Host;
 import con.zzy.diytomcat.http.Request;
 import con.zzy.diytomcat.http.Response;
 import con.zzy.diytomcat.util.Constant;
@@ -28,9 +29,7 @@ public class Bootstrap {
         try {
             logJVM();
 
-            scanContextsOnWebAppsFolder();
-            scanContextsInServerXML();
-
+            Host host = new Host();
             int port = 18080;
             ServerSocket serverSocket = new ServerSocket(port);
             while (true) {
@@ -39,7 +38,7 @@ public class Bootstrap {
                     @Override
                     public void run() {
                         try {
-                            Request request = new Request(socket);
+                            Request request = new Request(socket, host);
                             System.out.println("ブラウザインプット情報：\r\n" + request.getRequestString());
                             System.out.println("uri:" + request.getUri());
 
@@ -84,21 +83,6 @@ public class Bootstrap {
         } catch (IOException e) {
             LogFactory.get().error(e);
             e.printStackTrace();
-        }
-    }
-
-    private static void scanContextsInServerXML() {
-        List<Context> contexts = ServerXMLUtil.getContexts();
-        for (Context context : contexts) {
-            contextMap.put(context.getPath(), context);
-        }
-    }
-
-    private static void scanContextsOnWebAppsFolder(){
-        File[] folders = Constant.webappsFolder.listFiles();
-        for(File folder : folders){
-            if(!folder.isDirectory()){continue;}
-            loadContext(folder);
         }
     }
 
