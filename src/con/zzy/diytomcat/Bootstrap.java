@@ -10,6 +10,7 @@ import cn.hutool.system.SystemUtil;
 import con.zzy.diytomcat.catalina.Context;
 import con.zzy.diytomcat.catalina.Engine;
 import con.zzy.diytomcat.catalina.Host;
+import con.zzy.diytomcat.catalina.Service;
 import con.zzy.diytomcat.http.Request;
 import con.zzy.diytomcat.http.Response;
 import con.zzy.diytomcat.util.Constant;
@@ -30,7 +31,7 @@ public class Bootstrap {
         try {
             logJVM();
 
-            Engine engine = new Engine();
+            Service service = new Service();
             int port = 18080;
             ServerSocket serverSocket = new ServerSocket(port);
             while (true) {
@@ -39,7 +40,7 @@ public class Bootstrap {
                     @Override
                     public void run() {
                         try {
-                            Request request = new Request(socket, engine);
+                            Request request = new Request(socket, service);
                             System.out.println("ブラウザインプット情報：\r\n" + request.getRequestString());
                             System.out.println("uri:" + request.getUri());
 

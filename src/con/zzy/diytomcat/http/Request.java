@@ -6,6 +6,7 @@ import con.zzy.diytomcat.Bootstrap;
 import con.zzy.diytomcat.catalina.Context;
 import con.zzy.diytomcat.catalina.Engine;
 import con.zzy.diytomcat.catalina.Host;
+import con.zzy.diytomcat.catalina.Service;
 import con.zzy.diytomcat.util.MiniBrowser;
 
 import java.io.IOException;
@@ -17,11 +18,11 @@ public class Request {
     private String uri;
     private Socket socket;
     private Context context;
-    private Engine engine;
+    private Service service;
 
-    public Request(Socket socket, Engine engine) throws IOException {
+    public Request(Socket socket, Service service) throws IOException {
         this.socket = socket;
-        this.engine = engine;
+        this.service = service;
         parseHttpRequest();
         if(StrUtil.isEmpty(requestString)) return;
         parseUri();
@@ -41,9 +42,9 @@ public class Request {
             path = "/" + path;
         }
 
-        context = engine.getDefaultHost().getContext(path);
+        context = service.getEngine().getDefaultHost().getContext(path);
         if(null == context){
-            context = engine.getDefaultHost().getContext("/");
+            context = service.getEngine().getDefaultHost().getContext("/");
         }
     }
 

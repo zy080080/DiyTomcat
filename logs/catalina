@@ -28,3 +28,63 @@ INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/Diy
 INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b
 10 05, 2021 10:16:43 上午 con.zzy.diytomcat.catalina.Context <init>
 INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b has finished in 0 ms
+10 05, 2021 11:30:58 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : Server version		zzy DiyTomcat/1.0.1
+10 05, 2021 11:30:58 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : Server built		2021-09-26 15:28:13
+10 05, 2021 11:30:58 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : Server number		1.0.1
+10 05, 2021 11:30:58 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : OS Name			Mac OS X
+10 05, 2021 11:30:58 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : OS Version		11.5
+10 05, 2021 11:30:58 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : Architecture		null
+10 05, 2021 11:30:58 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : Java Home		/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
+10 05, 2021 11:30:58 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : JVM Version		11.0.11+9-LTS
+10 05, 2021 11:30:58 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : JVM Vendor		Oracle Corporation
+10 05, 2021 11:30:58 上午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a
+10 05, 2021 11:30:58 上午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a has finished in 1 ms
+10 05, 2021 11:30:58 上午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT
+10 05, 2021 11:30:58 上午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT has finished in 1 ms
+10 05, 2021 11:30:58 上午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b
+10 05, 2021 11:30:58 上午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b has finished in 1 ms
+10 05, 2021 11:32:18 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : Server version		zzy DiyTomcat/1.0.1
+10 05, 2021 11:32:18 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : Server built		2021-09-26 15:28:13
+10 05, 2021 11:32:18 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : Server number		1.0.1
+10 05, 2021 11:32:18 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : OS Name			Mac OS X
+10 05, 2021 11:32:18 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : OS Version		11.5
+10 05, 2021 11:32:18 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : Architecture		null
+10 05, 2021 11:32:18 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : Java Home		/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
+10 05, 2021 11:32:18 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : JVM Version		11.0.11+9-LTS
+10 05, 2021 11:32:18 上午 con.zzy.diytomcat.Bootstrap logJVM
+INFO : JVM Vendor		Oracle Corporation
+10 05, 2021 11:32:18 上午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a
+10 05, 2021 11:32:18 上午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a has finished in 1 ms
+10 05, 2021 11:32:18 上午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT
+10 05, 2021 11:32:18 上午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT has finished in 1 ms
+10 05, 2021 11:32:18 上午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b
+10 05, 2021 11:32:18 上午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b has finished in 0 ms
