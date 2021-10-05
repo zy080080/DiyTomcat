@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.useragent.OS;
 import con.zzy.diytomcat.Bootstrap;
 import con.zzy.diytomcat.catalina.Context;
+import con.zzy.diytomcat.catalina.Engine;
 import con.zzy.diytomcat.catalina.Host;
 import con.zzy.diytomcat.util.MiniBrowser;
 
@@ -16,11 +17,11 @@ public class Request {
     private String uri;
     private Socket socket;
     private Context context;
-    private Host host;
+    private Engine engine;
 
-    public Request(Socket socket, Host host) throws IOException {
+    public Request(Socket socket, Engine engine) throws IOException {
         this.socket = socket;
-        this.host = host;
+        this.engine = engine;
         parseHttpRequest();
         if(StrUtil.isEmpty(requestString)) return;
         parseUri();
@@ -40,9 +41,9 @@ public class Request {
             path = "/" + path;
         }
 
-        context = host.getContext(path);
+        context = engine.getDefaultHost().getContext(path);
         if(null == context){
-            context = host.getContext("/");
+            context = engine.getDefaultHost().getContext("/");
         }
     }
 

@@ -8,6 +8,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.LogFactory;
 import cn.hutool.system.SystemUtil;
 import con.zzy.diytomcat.catalina.Context;
+import con.zzy.diytomcat.catalina.Engine;
 import con.zzy.diytomcat.catalina.Host;
 import con.zzy.diytomcat.http.Request;
 import con.zzy.diytomcat.http.Response;
@@ -29,7 +30,7 @@ public class Bootstrap {
         try {
             logJVM();
 
-            Host host = new Host();
+            Engine engine = new Engine();
             int port = 18080;
             ServerSocket serverSocket = new ServerSocket(port);
             while (true) {
@@ -38,7 +39,7 @@ public class Bootstrap {
                     @Override
                     public void run() {
                         try {
-                            Request request = new Request(socket, host);
+                            Request request = new Request(socket, engine);
                             System.out.println("ブラウザインプット情報：\r\n" + request.getRequestString());
                             System.out.println("uri:" + request.getUri());
 
