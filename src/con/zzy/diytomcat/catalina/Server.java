@@ -72,13 +72,19 @@ public class Server {
                                         ThreadUtil.sleep(1000);
                                     }
                                 } else {
-                                    response.getWriter().println("File Not Found");
+                                    handle404(socket, uri);
+                                    return;
                                 }
                             }
-
                             handle200(socket, response);
                         } catch (IOException e) {
                             e.printStackTrace();
+                        } finally {
+                            try {
+                                if (!socket.isClosed()) socket.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 };
@@ -124,5 +130,13 @@ public class Server {
 
         // close()で自動的にflush()
         socket.close();
+    }
+
+    protected void handle404(Socket s, String uri) throws IOException {
+        OutputStream os = s.getOutputStream();
+        String responseText = StrUtil.format(Constant.textFormat_404, uri, uri);
+        responseText = Constant.response_head_404 + responseText;
+        byte[] responseByte = responseText.getBytes("utf-8");
+        os.write(responseByte);
     }
 }
