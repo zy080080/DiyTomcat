@@ -66,6 +66,14 @@ public class Server {
 
                             String fileName = StrUtil.removePrefix(uri, "/");
                             File file = FileUtil.file(context.getDocBase(), fileName);
+
+                            // a/b/c/index.html
+                            if (!file.isFile()) {
+                                uri = uri + "/" + WebXMLUtil.getWelcomeFile(request.getContext());
+                                fileName = StrUtil.removePrefix(uri, "/");
+                                file = new File(context.getDocBase(), fileName);
+                            }
+
                             if (file.exists()) {
                                 String fileContent = FileUtil.readUtf8String(file);
                                 response.getWriter().println(fileContent);
