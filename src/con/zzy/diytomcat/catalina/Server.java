@@ -19,6 +19,7 @@ import java.net.Socket;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 public class Server {
     private Service service;
@@ -55,6 +56,10 @@ public class Server {
                             if (null == uri) return;
                             System.out.println(uri);
 
+                            if("/500.html".equals(uri)){
+                                throw new Exception("this is a deliberately created exception");
+                            }
+
                             if ("/".equals(uri)) {
                                 String html = "Hello DIY Tomcat from zzy";
                                 response.getWriter().println(html);
@@ -77,8 +82,9 @@ public class Server {
                                 }
                             }
                             handle200(socket, response);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        } catch (Exception e) {
+                            LogFactory.get().error(e);
+                            handle500(socket, e);
                         } finally {
                             try {
                                 if (!socket.isClosed()) socket.close();
@@ -138,5 +144,34 @@ public class Server {
         responseText = Constant.response_head_404 + responseText;
         byte[] responseByte = responseText.getBytes("utf-8");
         os.write(responseByte);
+    }
+
+    protected void handle500(Socket s, Exception e) {
+        try {
+            OutputStream os = s.getOutputStream();
+            StackTraceElement[] stackTraceElement = e.getStackTrace();
+            StringBuffer sb = new StringBuffer();
+            sb.append(e.toString());
+            sb.append("\r\n");
+            for (StackTraceElement ste : stackTraceElement) {
+                sb.append("\t");
+                sb.append(ste.toString());
+                sb.append("\r\n");
+            }
+
+            // 表示しやすいように19文字まで
+            String message = e.getMessage();
+            if (null != message && message.length() > 20) {
+                message = message.substring(0, 19);
+            }
+
+            String text = StrUtil.format(Constant.textFormat_500, message, e.toString(), sb.toString());
+            text = Constant.response_head_500 + text;
+            byte[] responseBytes = text.getBytes("utf-8");
+            os.write(responseBytes);
+        } catch (IOException e1) {
+            e.printStackTrace();
+        }
+
     }
 }
