@@ -10,6 +10,7 @@ import con.zzy.diytomcat.http.Request;
 import con.zzy.diytomcat.http.Response;
 import con.zzy.diytomcat.util.Constant;
 import con.zzy.diytomcat.util.ThreadPoolUtil;
+import con.zzy.diytomcat.util.WebXMLUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,31 +57,30 @@ public class Server {
                             if (null == uri) return;
                             System.out.println(uri);
 
-                            if("/500.html".equals(uri)){
+                            if ("/500.html".equals(uri)) {
                                 throw new Exception("this is a deliberately created exception");
                             }
 
-                            if ("/".equals(uri)) {
-                                String html = "Hello DIY Tomcat from zzy";
-                                response.getWriter().println(html);
-                            } else {
-                                String fileName = StrUtil.removePrefix(uri, "/");
-                                File file = FileUtil.file(context.getDocBase(), fileName);
-                                if (file.exists()) {
-                                    String fileContent = FileUtil.readUtf8String(file);
-                                    response.getWriter().println(fileContent);
+                            if ("/".equals(uri))
+                                uri = WebXMLUtil.getWelcomeFile(request.getContext());
 
-                                    if (fileName.equals("timeConsume.html")) {
-                                        // この後のマルチスレッドのために用意したもの，
-                                        // 実際の場合はWebページにアクセスするときに，データベースに接続など，時間がかかる作業がある。
-                                        // ここでtimeConsume.htmlにアクセスするために1秒かかると想定
-                                        ThreadUtil.sleep(1000);
-                                    }
-                                } else {
-                                    handle404(socket, uri);
-                                    return;
+                            String fileName = StrUtil.removePrefix(uri, "/");
+                            File file = FileUtil.file(context.getDocBase(), fileName);
+                            if (file.exists()) {
+                                String fileContent = FileUtil.readUtf8String(file);
+                                response.getWriter().println(fileContent);
+
+                                if (fileName.equals("timeConsume.html")) {
+                                    // この後のマルチスレッドのために用意したもの，
+                                    // 実際の場合はWebページにアクセスするときに，データベースに接続など，時間がかかる作業がある。
+                                    // ここでtimeConsume.htmlにアクセスするために1秒かかると想定
+                                    ThreadUtil.sleep(1000);
                                 }
+                            } else {
+                                handle404(socket, uri);
+                                return;
                             }
+
                             handle200(socket, response);
                         } catch (Exception e) {
                             LogFactory.get().error(e);

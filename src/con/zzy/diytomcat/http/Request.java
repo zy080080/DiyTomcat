@@ -31,10 +31,14 @@ public class Request {
         // uri="/a/index.html" -> uri="/index"
         if(!"/".equals(context.getPath())){
             uri = StrUtil.removePrefix(uri, context.getPath());
+            if(StrUtil.isEmpty(uri)) uri = "/";
         }
     }
 
     private void parseContext(){
+        Engine engine = service.getEngine();
+        context = engine.getDefaultHost().getContext(uri);
+        if(null != context) return;
         String path = StrUtil.subBetween(uri,"/","/");
         if(null == path){
             path = "/";
@@ -42,9 +46,9 @@ public class Request {
             path = "/" + path;
         }
 
-        context = service.getEngine().getDefaultHost().getContext(path);
+        context = engine.getDefaultHost().getContext(path);
         if(null == context){
-            context = service.getEngine().getDefaultHost().getContext("/");
+            context = engine.getDefaultHost().getContext("/");
         }
     }
 

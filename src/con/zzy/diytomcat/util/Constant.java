@@ -14,6 +14,8 @@ public class Constant {
     public static final File confFolder = new File(SystemUtil.get("user.dir"), "conf");
     public static final File serverXmlFile = new File(confFolder, "server.xml");
 
+    public static final File webXmlFile = new File(confFolder, "web.xml");
+
     public static final String response_head_404 = "HTTP/1.1 404 Not Found\r\n" +
             "Content-Type:text/html\r\n\r\n";
 

@@ -61,13 +61,14 @@ public class TestTomcat {
 
     @Test
     public void testaIndex(){
-        String html = getContentString("/a/index.html");
+//        String html = getContentString("/a/index.html");
+        String html = getContentString("/a");
         Assert.assertEquals(html, "Hello DIY Tomcat from index.html@a");
     }
 
     @Test
     public void testbIndex(){
-        String html = getContentString("/b/index.html");
+        String html = getContentString("/b");
         Assert.assertEquals(html, "Hello DIY Tomcat from index.html@b");
     }
 
