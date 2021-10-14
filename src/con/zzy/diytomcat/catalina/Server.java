@@ -75,6 +75,10 @@ public class Server {
                             }
 
                             if (file.exists()) {
+                                String extName = FileUtil.extName(file);
+                                String mimeType = WebXMLUtil.getMimeTypes(extName);
+                                response.setContentType(mimeType);
+
                                 String fileContent = FileUtil.readUtf8String(file);
                                 response.getWriter().println(fileContent);
 
