@@ -54,7 +54,8 @@ public class Request {
 
     private void parseHttpRequest() throws IOException{
         InputStream inputStream = this.socket.getInputStream();
-        byte[] bytes = MiniBrowser.readBytes(inputStream);
+        // HTTP1.1のデフォルトでは継続的接続のため，trueにするとreadBytes中のwhile文が止まらなくなる。
+        byte[] bytes = MiniBrowser.readBytes(inputStream, false);
         requestString = new String(bytes, "utf-8");
         /**
          * 例：

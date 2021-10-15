@@ -8,6 +8,7 @@ import con.zzy.diytomcat.util.MiniBrowser;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -88,6 +89,29 @@ public class TestTomcat {
     public void testaTxt(){
         String response = getHttpString("/a.txt");
         containAssert(response, "Content-Type: text/plain");
+    }
+
+    @Test
+    public void testPNG(){
+        byte[] bytes = getContentBytes("/sample.png");
+        int pngFileLength = 1157741;
+        Assert.assertEquals(pngFileLength, bytes.length);
+    }
+
+    @Test
+    public void testPDF() {
+        byte[] bytes = getContentBytes("/guideline.pdf");
+        int pngFileLength = 1029699;
+        Assert.assertEquals(pngFileLength, bytes.length);
+    }
+
+    private byte[] getContentBytes(String uri){
+        return getContentBytes(uri, false);
+    }
+
+    private byte[] getContentBytes(String uri, boolean zip){
+        String url = StrUtil.format("http://{}:{}{}", ip, port, uri);
+        return MiniBrowser.getContentBytes(url, false);
     }
 
     private String getContentString(String uri){

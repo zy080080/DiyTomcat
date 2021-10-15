@@ -134,18 +134,19 @@ public class MiniBrowser {
             printWriter.println(httpRequestString);
             InputStream inputStream = clinet.getInputStream();
 
-            int buffer_size = 1024;
+//            int buffer_size = 1024;
+//
+//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//            byte buffer[] = new byte[buffer_size];
+//            while(true) {
+//                int length = inputStream.read(buffer);
+//                if(-1 == length){break;}
+//                baos.write(buffer, 0, length);
+//                if(length != buffer_size){break;}
+//            }
 
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            byte buffer[] = new byte[buffer_size];
-            while(true) {
-                int length = inputStream.read(buffer);
-                if(-1 == length){break;}
-                baos.write(buffer, 0, length);
-                if(length != buffer_size){break;}
-            }
-
-            result = baos.toByteArray();
+//            result = baos.toByteArray();
+            result = readBytes(inputStream, true);
             clinet.close();
         }catch(Exception e){
             e.printStackTrace();
@@ -159,7 +160,7 @@ public class MiniBrowser {
         return result;
     }
 
-    public static byte[] readBytes(InputStream inputStream) throws IOException {
+    public static byte[] readBytes(InputStream inputStream, boolean fully) throws IOException {
         int buffer_size = 1024;
         byte[] buffer = new byte[buffer_size];
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -167,7 +168,9 @@ public class MiniBrowser {
             int length = inputStream.read(buffer);
             if(-1 == length) break;
             baos.write(buffer, 0, length);
-            if(length != buffer_size) break;
+            // fullyがtrueのときに読み込んだデータのサイズがbuffer_sizeより短くても続く。
+            // 大きなファイルを転送するときに一回1024バイトで送らない場合もあるため。
+            if(!fully && length != buffer_size) break;
         }
 
         return baos.toByteArray();

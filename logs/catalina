@@ -1,34 +1,94 @@
-10 14, 2021 23:25:11 下午 con.zzy.diytomcat.catalina.Context <init>
+10 15, 2021 21:21:43 下午 con.zzy.diytomcat.catalina.Context <init>
 INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a
-10 14, 2021 23:25:11 下午 con.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a has finished in 125 ms
-10 14, 2021 23:25:11 下午 con.zzy.diytomcat.catalina.Context <init>
+10 15, 2021 21:21:43 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a has finished in 116 ms
+10 15, 2021 21:21:43 下午 con.zzy.diytomcat.catalina.Context <init>
 INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT
-10 14, 2021 23:25:11 下午 con.zzy.diytomcat.catalina.Context <init>
+10 15, 2021 21:21:43 下午 con.zzy.diytomcat.catalina.Context <init>
 INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT has finished in 0 ms
-10 14, 2021 23:25:11 下午 con.zzy.diytomcat.catalina.Context <init>
+10 15, 2021 21:21:43 下午 con.zzy.diytomcat.catalina.Context <init>
 INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b
-10 14, 2021 23:25:11 下午 con.zzy.diytomcat.catalina.Context <init>
+10 15, 2021 21:21:43 下午 con.zzy.diytomcat.catalina.Context <init>
 INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b has finished in 0 ms
-10 14, 2021 23:25:11 下午 con.zzy.diytomcat.catalina.Server logJVM
+10 15, 2021 21:21:43 下午 con.zzy.diytomcat.catalina.Server logJVM
 INFO : Server version		zzy DiyTomcat/1.0.1
-10 14, 2021 23:25:11 下午 con.zzy.diytomcat.catalina.Server logJVM
+10 15, 2021 21:21:43 下午 con.zzy.diytomcat.catalina.Server logJVM
 INFO : Server built		2021-09-26 15:28:13
-10 14, 2021 23:25:11 下午 con.zzy.diytomcat.catalina.Server logJVM
+10 15, 2021 21:21:43 下午 con.zzy.diytomcat.catalina.Server logJVM
 INFO : Server number		1.0.1
-10 14, 2021 23:25:11 下午 con.zzy.diytomcat.catalina.Server logJVM
+10 15, 2021 21:21:43 下午 con.zzy.diytomcat.catalina.Server logJVM
 INFO : OS Name			Mac OS X
-10 14, 2021 23:25:11 下午 con.zzy.diytomcat.catalina.Server logJVM
+10 15, 2021 21:21:43 下午 con.zzy.diytomcat.catalina.Server logJVM
 INFO : OS Version		11.5
-10 14, 2021 23:25:11 下午 con.zzy.diytomcat.catalina.Server logJVM
+10 15, 2021 21:21:43 下午 con.zzy.diytomcat.catalina.Server logJVM
 INFO : Architecture		null
-10 14, 2021 23:25:11 下午 con.zzy.diytomcat.catalina.Server logJVM
+10 15, 2021 21:21:43 下午 con.zzy.diytomcat.catalina.Server logJVM
 INFO : Java Home		/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
-10 14, 2021 23:25:11 下午 con.zzy.diytomcat.catalina.Server logJVM
+10 15, 2021 21:21:43 下午 con.zzy.diytomcat.catalina.Server logJVM
 INFO : JVM Version		11.0.11+9-LTS
-10 14, 2021 23:25:11 下午 con.zzy.diytomcat.catalina.Server logJVM
+10 15, 2021 21:21:43 下午 con.zzy.diytomcat.catalina.Server logJVM
 INFO : JVM Vendor		Oracle Corporation
-10 14, 2021 23:25:53 下午 con.zzy.diytomcat.catalina.Server$1 error
+10 15, 2021 21:26:01 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a
+10 15, 2021 21:26:01 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a has finished in 112 ms
+10 15, 2021 21:26:01 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT
+10 15, 2021 21:26:01 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT has finished in 0 ms
+10 15, 2021 21:26:01 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b
+10 15, 2021 21:26:01 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b has finished in 0 ms
+10 15, 2021 21:26:01 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : Server version		zzy DiyTomcat/1.0.1
+10 15, 2021 21:26:01 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : Server built		2021-09-26 15:28:13
+10 15, 2021 21:26:01 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : Server number		1.0.1
+10 15, 2021 21:26:01 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : OS Name			Mac OS X
+10 15, 2021 21:26:01 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : OS Version		11.5
+10 15, 2021 21:26:01 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : Architecture		null
+10 15, 2021 21:26:01 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : Java Home		/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
+10 15, 2021 21:26:01 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : JVM Version		11.0.11+9-LTS
+10 15, 2021 21:26:01 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : JVM Vendor		Oracle Corporation
+10 15, 2021 23:07:43 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a
+10 15, 2021 23:07:43 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a has finished in 201 ms
+10 15, 2021 23:07:43 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT
+10 15, 2021 23:07:43 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT has finished in 1 ms
+10 15, 2021 23:07:43 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b
+10 15, 2021 23:07:43 下午 con.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b has finished in 0 ms
+10 15, 2021 23:07:43 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : Server version		zzy DiyTomcat/1.0.1
+10 15, 2021 23:07:43 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : Server built		2021-09-26 15:28:13
+10 15, 2021 23:07:43 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : Server number		1.0.1
+10 15, 2021 23:07:43 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : OS Name			Mac OS X
+10 15, 2021 23:07:43 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : OS Version		11.5
+10 15, 2021 23:07:43 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : Architecture		null
+10 15, 2021 23:07:43 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : Java Home		/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
+10 15, 2021 23:07:43 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : JVM Version		11.0.11+9-LTS
+10 15, 2021 23:07:43 下午 con.zzy.diytomcat.catalina.Server logJVM
+INFO : JVM Vendor		Oracle Corporation
+10 15, 2021 23:09:08 下午 con.zzy.diytomcat.catalina.Server$1 error
 ERROR: this is a deliberately created exception
 java.lang.Exception: this is a deliberately created exception
 	at con.zzy.diytomcat.catalina.Server$1.run(Server.java:61)

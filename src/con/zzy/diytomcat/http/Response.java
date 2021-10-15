@@ -12,6 +12,7 @@ public class Response {
     private PrintWriter printWriter;
     // レスポンスヘッダのContent-typeに対応，デフォルトは　text/html
     private String contentType;
+    private byte[] body;
 
     public Response(){
         this.stringWriter = new StringWriter();
@@ -31,8 +32,15 @@ public class Response {
         return printWriter;
     }
 
+    public void setBody(byte[] body){
+        this.body = body;
+    }
+
     public byte[] getBody() throws UnsupportedEncodingException{
-        String content = stringWriter.toString();
-        return content.getBytes("utf-8");
+        if(null == body){
+            String content = stringWriter.toString();
+            body = content.getBytes();
+        }
+        return body;
     }
 }

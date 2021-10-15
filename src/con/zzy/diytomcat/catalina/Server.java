@@ -79,8 +79,8 @@ public class Server {
                                 String mimeType = WebXMLUtil.getMimeTypes(extName);
                                 response.setContentType(mimeType);
 
-                                String fileContent = FileUtil.readUtf8String(file);
-                                response.getWriter().println(fileContent);
+                                byte[] body = FileUtil.readBytes(file);
+                                response.setBody(body);
 
                                 if (fileName.equals("timeConsume.html")) {
                                     // この後のマルチスレッドのために用意したもの，
