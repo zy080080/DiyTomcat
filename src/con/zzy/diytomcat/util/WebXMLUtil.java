@@ -15,7 +15,7 @@ public class WebXMLUtil {
     private static Map<String, String> mimeTypeMapping = new HashMap<>();
 
     // 一回だけ初期化すれば良いためsynchronized
-    public static synchronized String getMimeTypes(String extName) {
+    public static synchronized String getMimeType(String extName) {
         if (mimeTypeMapping.isEmpty()) initMimeType();
         String mimeType = mimeTypeMapping.get(extName);
         if (null == mimeType) return "text/html";

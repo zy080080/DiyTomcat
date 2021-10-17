@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class TestTomcat {
-    private static int port = 18080;
+    private static int port = 18081;
     private static String ip = "127.0.0.1";
 
     @BeforeClass
