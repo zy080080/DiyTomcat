@@ -105,6 +105,12 @@ public class TestTomcat {
         Assert.assertEquals(pngFileLength, bytes.length);
     }
 
+    @Test
+    public void testhello(){
+        String html = getContentString("/hello");
+        Assert.assertEquals(html, "Hello DIY Tomcat from HelloServlet");
+    }
+
     private byte[] getContentBytes(String uri){
         return getContentBytes(uri, false);
     }

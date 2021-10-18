@@ -9,6 +9,7 @@ import con.zzy.diytomcat.http.Request;
 import con.zzy.diytomcat.http.Response;
 import con.zzy.diytomcat.util.Constant;
 import con.zzy.diytomcat.util.WebXMLUtil;
+import con.zzy.diytomcat.webappservlet.HelloServlet;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,50 +17,56 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 public class HttpProcessor {
-    public void execute(Socket s, Request request, Response response){
+    public void execute(Socket s, Request request, Response response) {
         try {
             String uri = request.getUri();
-            if(null == uri) return;
+            if (null == uri) return;
 
             Context context = request.getContext();
 
-            if("/500.html".equals(uri)){
+            if ("/500.html".equals(uri)) {
                 throw new Exception("this is a deliberately created exception");
             }
-            if("/".equals(uri)){
-                uri = WebXMLUtil.getWelcomeFile(request.getContext());
-            }
-
-            String fileName = StrUtil.removePrefix(uri, "/");
-            File file = FileUtil.file(context.getDocBase(), fileName);
-
-            if(file.exists()){
-                String extName = FileUtil.extName(file);
-                String mimeType = WebXMLUtil.getMimeType(extName);
-                response.setContentType(mimeType);
-
-                byte[] body = FileUtil.readBytes(file);
-                response.setBody(body);
-
-                if(fileName.equals("timeConsume.html")){
-                    ThreadUtil.sleep(1000);
+            if ("/hello".equals(uri)) {
+                HelloServlet helloServlet = new HelloServlet();
+                helloServlet.doGet(request, response);
+            } else {
+                if ("/".equals(uri)) {
+                    uri = WebXMLUtil.getWelcomeFile(request.getContext());
                 }
-            }else{
-                handle404(s, uri);
-                return;
+
+                String fileName = StrUtil.removePrefix(uri, "/");
+                File file = FileUtil.file(context.getDocBase(), fileName);
+
+                if (file.exists()) {
+                    String extName = FileUtil.extName(file);
+                    String mimeType = WebXMLUtil.getMimeType(extName);
+                    response.setContentType(mimeType);
+
+                    byte[] body = FileUtil.readBytes(file);
+                    response.setBody(body);
+
+                    if (fileName.equals("timeConsume.html")) {
+                        ThreadUtil.sleep(1000);
+                    }
+                } else {
+                    handle404(s, uri);
+                    return;
+                }
             }
             handle200(s, response);
         } catch (Exception e) {
             LogFactory.get().error(e);
             handle500(s, e);
-        }finally{
-            try{
-                if(!s.isClosed()) s.close();
-            }catch (IOException e){
+        } finally {
+            try {
+                if (!s.isClosed()) s.close();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+
     private static void handle200(Socket s, Response response) throws IOException {
         String contentType = response.getContentType();
         String headText = Constant.response_head_202;
@@ -107,7 +114,7 @@ public class HttpProcessor {
             text = Constant.response_head_500 + text;
             byte[] responseBytes = text.getBytes("utf-8");
             os.write(responseBytes);
-        }catch(IOException e1){
+        } catch (IOException e1) {
             e1.printStackTrace();
         }
     }
