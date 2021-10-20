@@ -4,6 +4,7 @@ import cn.hutool.core.util.ReflectUtil;
 import com.zzy.diytomcat.catalina.Context;
 import com.zzy.diytomcat.http.Request;
 import com.zzy.diytomcat.http.Response;
+import com.zzy.diytomcat.util.Constant;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ import java.io.IOException;
  */
 public class InvokerServlet extends HttpServlet {
     // シングルトン
-    public static InvokerServlet instance = new InvokerServlet();
+    private static InvokerServlet instance = new InvokerServlet();
 
     public static InvokerServlet getInstance() {
         return instance;
@@ -36,5 +37,6 @@ public class InvokerServlet extends HttpServlet {
         String servletClassName = context.getServletClassName(uri);
         Object servletObject = ReflectUtil.newInstance(servletClassName);
         ReflectUtil.invoke(servletObject, "service", request, response);
+        response.setStatus(Constant.CODE_200);
     }
 }

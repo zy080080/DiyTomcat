@@ -5,6 +5,11 @@ import cn.hutool.system.SystemUtil;
 import java.io.File;
 
 public class Constant {
+    public static final int CODE_200 = 200;
+    public static final int CODE_302 = 302;
+    public static final int CODE_404 = 404;
+    public static final int CODE_500 = 500;
+
     // レスポンスヘッダメッセージテンプレート
     public static final String response_head_202 = "HTTP/1.1 200 OK\r\n" + "Content-Type: {}\r\n\r\n";
     // String System.getProperty("user.dir")　実行時のパスを動的に取得  user.dir: working directory

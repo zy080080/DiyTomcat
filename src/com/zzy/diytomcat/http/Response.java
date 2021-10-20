@@ -13,6 +13,7 @@ public class Response extends BaseResponse {
     // レスポンスヘッダのContent-typeに対応，デフォルトは　text/html
     private String contentType;
     private byte[] body;
+    private int status;
 
     public Response(){
         this.stringWriter = new StringWriter();
@@ -42,5 +43,15 @@ public class Response extends BaseResponse {
             body = content.getBytes();
         }
         return body;
+    }
+
+    @Override
+    public int getStatus() {
+        return status;
+    }
+
+    @Override
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
