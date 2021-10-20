@@ -8,6 +8,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.LogFactory;
 import com.zzy.diytomcat.http.Request;
 import com.zzy.diytomcat.http.Response;
+import com.zzy.diytomcat.servlets.InvokerServlet;
 import com.zzy.diytomcat.util.Constant;
 import com.zzy.diytomcat.util.WebXMLUtil;
 import com.zzy.diytomcat.webappservlet.HelloServlet;
@@ -27,8 +28,7 @@ public class HttpProcessor {
             String servletClassName = context.getServletClassName(uri);
 
             if (null != servletClassName) {
-                Object servletObject = ReflectUtil.newInstance(servletClassName);
-                ReflectUtil.invoke(servletObject, "doGet", request, response);
+                InvokerServlet.getInstance().service(request, response);
             } else {
                 if ("/500.html".equals(uri)) {
                     throw new Exception("this is a deliberately created exception");

@@ -17,6 +17,7 @@ public class Request extends BaseRequest {
     private Socket socket;
     private Context context;
     private Service service;
+    private String method;
 
     public Request(Socket socket, Service service) throws IOException {
         this.socket = socket;
@@ -25,6 +26,7 @@ public class Request extends BaseRequest {
         if(StrUtil.isEmpty(requestString)) return;
         parseUri();
         parseContext();
+        parseMethod();
 
         // uri="/a/index.html" -> uri="/index"
         if(!"/".equals(context.getPath())){
@@ -81,6 +83,10 @@ public class Request extends BaseRequest {
         uri = temp;
     }
 
+    private void parseMethod(){
+        method = StrUtil.subBefore(requestString," ",false);
+    }
+
     public Context getContext() {
         return context;
     }
@@ -91,5 +97,10 @@ public class Request extends BaseRequest {
 
     public String getRequestString(){
         return requestString;
+    }
+
+    @Override
+    public String getMethod() {
+        return method;
     }
 }
