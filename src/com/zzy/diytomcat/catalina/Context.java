@@ -8,6 +8,7 @@ import cn.hutool.log.LogFactory;
 import com.zzy.diytomcat.classloader.WebappClassLoader;
 import com.zzy.diytomcat.exception.WebConfigDuplicatedException;
 import com.zzy.diytomcat.util.ContextXMLUtil;
+import com.zzy.diytomcat.watcher.ContextFileChangeWatcher;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -20,6 +21,8 @@ public class Context {
     private String path;
     private String docBase;
     private File contextWebXmlFile;
+    private Host host;
+    private boolean reloadable;
 
     private Map<String, String> url_servletClassName;
     private Map<String, String> url_servletName;
@@ -27,11 +30,14 @@ public class Context {
     private Map<String, String> className_servletName;
 
     private WebappClassLoader webappClassLoader;
+    private ContextFileChangeWatcher contextFileChangeWatcher;
 
-    public Context(String path, String docBase) {
+    public Context(String path, String docBase, Host host, boolean reloadable) {
         TimeInterval timeInterval = DateUtil.timer();
         this.path = path;
         this.docBase = docBase;
+        this.host = host;
+        this.reloadable = reloadable;
         this.contextWebXmlFile = new File(docBase, ContextXMLUtil.getWatchedResource());
 
         this.url_servletClassName = new HashMap<>();
@@ -49,9 +55,11 @@ public class Context {
 
     private void deploy() {
         TimeInterval timeInterval = DateUtil.timer();
-        LogFactory.get().info("Deploying web application directory {}", this.docBase);
         init();
-        LogFactory.get().info("Deployment of web application directory {} has finished in {} ms", this.docBase, timeInterval.intervalMs());
+        if(reloadable){
+            contextFileChangeWatcher = new ContextFileChangeWatcher(this);
+            contextFileChangeWatcher.start();
+        }
     }
 
     private void init() {
@@ -68,6 +76,15 @@ public class Context {
         String xml = FileUtil.readUtf8String(contextWebXmlFile);
         Document d = Jsoup.parse(xml);
         parseServletMapping(d);
+    }
+
+    public void stop(){
+        webappClassLoader.stop();
+        contextFileChangeWatcher.stop();
+    }
+
+    public void reload(){
+        host.reload(this);
     }
 
     private void parseServletMapping(Document d) {
@@ -118,6 +135,14 @@ public class Context {
         checkDuplicated(d, "servlet-mapping url-pattern", "同じservlet urlが複数あります：{}");
         checkDuplicated(d, "servlet servlet-name", "同じservletが複数あります：{}");
         checkDuplicated(d, "servlet servlet-class", "同じservlet classが複数あります：{}");
+    }
+
+    public boolean isReloadable(){
+        return reloadable;
+    }
+
+    public void setReloadable(boolean reloadable) {
+        this.reloadable = reloadable;
     }
 
     public String getServletClassName(String uri){
