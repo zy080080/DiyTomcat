@@ -6,6 +6,7 @@ import com.zzy.diytomcat.catalina.Engine;
 import com.zzy.diytomcat.catalina.Service;
 import com.zzy.diytomcat.util.MiniBrowser;
 
+import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
@@ -81,6 +82,14 @@ public class Request extends BaseRequest {
         }
         temp = StrUtil.subBefore(temp, '?', false);
         uri = temp;
+    }
+
+    public ServletContext getServletContext(){
+        return context.getServletContext();
+    }
+
+    public String getRealPath(String path){
+        return getServletContext().getRealPath(path);
     }
 
     private void parseMethod(){

@@ -1,240 +1,58 @@
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Context <init>
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
 INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/j2ee
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/j2ee has finished in 144 ms
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Context <init>
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/j2ee has finished in 154 ms
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
 INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Context <init>
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
 INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a has finished in 1 ms
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Context <init>
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
 INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT has finished in 2 ms
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b has finished in 1 ms
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/project/javaweb/web
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/project/javaweb/web has finished in 3 ms
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : Server version		zzy DiyTomcat/1.0.1
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : Server built		2021-09-26 15:28:13
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : Server number		1.0.1
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : OS Name			Mac OS X
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : OS Version		11.5
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : Architecture		null
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : Java Home		/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : JVM Version		11.0.11+9-LTS
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : JVM Vendor		Oracle Corporation
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Connector init
-INFO : Initializing ProtocolHandler [http-bio-18080]
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Connector init
-INFO : Initializing ProtocolHandler [http-bio-18081]
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Connector init
-INFO : Initializing ProtocolHandler [http-bio-18082]
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Service init
-INFO : Initialization processed in 1 ms
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Connector start
-INFO : Starting ProtocolHandler [http-bio-18080
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Connector start
-INFO : Starting ProtocolHandler [http-bio-18081
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Connector start
-INFO : Starting ProtocolHandler [http-bio-18082
-10 30, 2021 22:32:47 下午 com.zzy.diytomcat.catalina.Server start
-INFO : Server startup in 5 ms
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/j2ee
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/j2ee has finished in 127 ms
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a has finished in 1 ms
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT has finished in 2 ms
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b has finished in 0 ms
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/project/javaweb/web
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/project/javaweb/web has finished in 2 ms
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : Server version		zzy DiyTomcat/1.0.1
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : Server built		2021-09-26 15:28:13
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : Server number		1.0.1
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : OS Name			Mac OS X
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : OS Version		11.5
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : Architecture		null
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : Java Home		/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : JVM Version		11.0.11+9-LTS
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : JVM Vendor		Oracle Corporation
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Connector init
-INFO : Initializing ProtocolHandler [http-bio-18080]
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Connector init
-INFO : Initializing ProtocolHandler [http-bio-18081]
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Connector init
-INFO : Initializing ProtocolHandler [http-bio-18082]
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Service init
-INFO : Initialization processed in 0 ms
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Connector start
-INFO : Starting ProtocolHandler [http-bio-18080
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Connector start
-INFO : Starting ProtocolHandler [http-bio-18081
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Connector start
-INFO : Starting ProtocolHandler [http-bio-18082
-10 30, 2021 22:36:24 下午 com.zzy.diytomcat.catalina.Server start
-INFO : Server startup in 4 ms
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/j2ee
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/j2ee has finished in 120 ms
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a has finished in 1 ms
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT has finished in 3 ms
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b has finished in 1 ms
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/project/javaweb/web
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/project/javaweb/web has finished in 2 ms
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : Server version		zzy DiyTomcat/1.0.1
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : Server built		2021-09-26 15:28:13
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : Server number		1.0.1
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : OS Name			Mac OS X
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : OS Version		11.5
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : Architecture		null
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : Java Home		/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : JVM Version		11.0.11+9-LTS
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Server logJVM
-INFO : JVM Vendor		Oracle Corporation
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Connector init
-INFO : Initializing ProtocolHandler [http-bio-18080]
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Connector init
-INFO : Initializing ProtocolHandler [http-bio-18081]
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Connector init
-INFO : Initializing ProtocolHandler [http-bio-18082]
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Service init
-INFO : Initialization processed in 0 ms
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Connector start
-INFO : Starting ProtocolHandler [http-bio-18080
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Connector start
-INFO : Starting ProtocolHandler [http-bio-18081
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Connector start
-INFO : Starting ProtocolHandler [http-bio-18082
-10 30, 2021 22:40:31 下午 com.zzy.diytomcat.catalina.Server start
-INFO : Server startup in 5 ms
-10 30, 2021 22:41:01 下午 com.zzy.diytomcat.watcher.ContextFileChangeWatcher$1 dealWith
-INFO : com.zzy.diytomcat.watcher.ContextFileChangeWatcher@24db69bbWeb application file changed HelloServlet.class
-10 30, 2021 22:41:01 下午 com.zzy.diytomcat.catalina.Host reload
-INFO : Reloading Context with name [/javaweb] has started
-10 30, 2021 22:41:01 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/project/javaweb/web
-10 30, 2021 22:41:01 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/project/javaweb/web has finished in 6 ms
-10 30, 2021 22:41:01 下午 com.zzy.diytomcat.catalina.Host reload
-INFO : Reloading Context with name [/javaweb] has completed
-10 30, 2021 22:41:11 下午 com.zzy.diytomcat.watcher.ContextFileChangeWatcher$1 dealWith
-INFO : com.zzy.diytomcat.watcher.ContextFileChangeWatcher@3f46ce65Web application file changed HelloServlet.class
-10 30, 2021 22:41:11 下午 com.zzy.diytomcat.catalina.Host reload
-INFO : Reloading Context with name [/javaweb] has started
-10 30, 2021 22:41:11 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/project/javaweb/web
-10 30, 2021 22:41:11 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/project/javaweb/web has finished in 2 ms
-10 30, 2021 22:41:11 下午 com.zzy.diytomcat.catalina.Host reload
-INFO : Reloading Context with name [/javaweb] has completed
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/j2ee
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/j2ee has finished in 124 ms
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/a has finished in 1 ms
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Context <init>
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
 INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/webapps/ROOT has finished in 1 ms
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Context <init>
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
 INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b has finished in 1 ms
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Context <init>
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/b has finished in 3 ms
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
 INFO : Deploying web application directory /Users/zhangzhiyong/Documents/DiyTomcat/project/javaweb/web
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/project/javaweb/web has finished in 2 ms
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Server logJVM
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/zhangzhiyong/Documents/DiyTomcat/project/javaweb/web has finished in 7 ms
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
 INFO : Server version		zzy DiyTomcat/1.0.1
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Server logJVM
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
 INFO : Server built		2021-09-26 15:28:13
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Server logJVM
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
 INFO : Server number		1.0.1
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Server logJVM
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
 INFO : OS Name			Mac OS X
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Server logJVM
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
 INFO : OS Version		11.5
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Server logJVM
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
 INFO : Architecture		null
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Server logJVM
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
 INFO : Java Home		/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Server logJVM
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
 INFO : JVM Version		11.0.11+9-LTS
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Server logJVM
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Server logJVM
 INFO : JVM Vendor		Oracle Corporation
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Connector init
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Connector init
 INFO : Initializing ProtocolHandler [http-bio-18080]
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Connector init
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Connector init
 INFO : Initializing ProtocolHandler [http-bio-18081]
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Connector init
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Connector init
 INFO : Initializing ProtocolHandler [http-bio-18082]
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Service init
-INFO : Initialization processed in 0 ms
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Connector start
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Service init
+INFO : Initialization processed in 2 ms
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Connector start
 INFO : Starting ProtocolHandler [http-bio-18080
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Connector start
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Connector start
 INFO : Starting ProtocolHandler [http-bio-18081
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Connector start
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Connector start
 INFO : Starting ProtocolHandler [http-bio-18082
-10 30, 2021 22:42:02 下午 com.zzy.diytomcat.catalina.Server start
-INFO : Server startup in 5 ms
-10 30, 2021 22:42:20 下午 com.zzy.diytomcat.catalina.HttpProcessor error
+11 01, 2021 23:36:24 下午 com.zzy.diytomcat.catalina.Server start
+INFO : Server startup in 15 ms
+11 01, 2021 23:36:31 下午 com.zzy.diytomcat.catalina.HttpProcessor error
 ERROR: this is a deliberately created exception
 java.lang.RuntimeException: this is a deliberately created exception
 	at com.zzy.diytomcat.servlets.DefaultServlet.service(DefaultServlet.java:37)

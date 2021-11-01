@@ -7,6 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.LogFactory;
 import com.zzy.diytomcat.classloader.WebappClassLoader;
 import com.zzy.diytomcat.exception.WebConfigDuplicatedException;
+import com.zzy.diytomcat.http.ApplicationContext;
 import com.zzy.diytomcat.util.ContextXMLUtil;
 import com.zzy.diytomcat.watcher.ContextFileChangeWatcher;
 import org.jsoup.Jsoup;
@@ -14,6 +15,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import javax.servlet.ServletContext;
 import java.io.File;
 import java.util.*;
 
@@ -23,6 +25,7 @@ public class Context {
     private File contextWebXmlFile;
     private Host host;
     private boolean reloadable;
+    private ServletContext servletContext;
 
     private Map<String, String> url_servletClassName;
     private Map<String, String> url_servletName;
@@ -39,6 +42,7 @@ public class Context {
         this.host = host;
         this.reloadable = reloadable;
         this.contextWebXmlFile = new File(docBase, ContextXMLUtil.getWatchedResource());
+        this.servletContext = new ApplicationContext(this);
 
         this.url_servletClassName = new HashMap<>();
         this.url_servletName = new HashMap<>();
@@ -167,5 +171,9 @@ public class Context {
 
     public WebappClassLoader getWebappClassLoader() {
         return webappClassLoader;
+    }
+
+    public ServletContext getServletContext() {
+        return servletContext;
     }
 }
