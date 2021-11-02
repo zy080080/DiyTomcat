@@ -8,6 +8,7 @@ import cn.hutool.log.LogFactory;
 import com.zzy.diytomcat.classloader.WebappClassLoader;
 import com.zzy.diytomcat.exception.WebConfigDuplicatedException;
 import com.zzy.diytomcat.http.ApplicationContext;
+import com.zzy.diytomcat.http.StandardServletConfig;
 import com.zzy.diytomcat.util.ContextXMLUtil;
 import com.zzy.diytomcat.watcher.ContextFileChangeWatcher;
 import org.jsoup.Jsoup;
@@ -15,6 +16,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,6 +35,7 @@ public class Context {
     private Map<String, String> url_servletName;
     private Map<String, String> servletName_className;
     private Map<String, String> className_servletName;
+    private Map<String, Map<String, String>> servlet_className_init_params;
 
     private Map<Class<?>, HttpServlet> servletPool;
 
@@ -52,6 +55,7 @@ public class Context {
         this.url_servletName = new HashMap<>();
         this.servletName_className = new HashMap<>();
         this.className_servletName = new HashMap<>();
+        this.servlet_className_init_params = new HashMap<>();
 
         this.servletPool = new HashMap<>();
 
@@ -86,11 +90,13 @@ public class Context {
         String xml = FileUtil.readUtf8String(contextWebXmlFile);
         Document d = Jsoup.parse(xml);
         parseServletMapping(d);
+        parseServletInitParams(d);
     }
 
     public void stop(){
         webappClassLoader.stop();
         contextFileChangeWatcher.stop();
+        destroyServlets();
     }
 
     public void reload(){
@@ -101,9 +107,22 @@ public class Context {
         HttpServlet servlet = servletPool.get(clazz);
         if(null == servlet){
             servlet = (HttpServlet) clazz.newInstance();
+            ServletContext servletContext = this.getServletContext();
+            String className = clazz.getName();
+            String servletName = className_servletName.get(className);
+            Map<String, String> initParameters = servlet_className_init_params.get(className);
+            ServletConfig servletConfig = new StandardServletConfig(servletContext, servletName, initParameters);
+            servlet.init(servletConfig);
             servletPool.put(clazz, servlet);
         }
         return servlet;
+    }
+
+    public void destroyServlets(){
+        Collection<HttpServlet> servlets = servletPool.values();
+        for(HttpServlet servlet : servlets){
+            servlet.destroy();
+        }
     }
 
     private void parseServletMapping(Document d) {
@@ -154,6 +173,24 @@ public class Context {
         checkDuplicated(d, "servlet-mapping url-pattern", "同じservlet urlが複数あります：{}");
         checkDuplicated(d, "servlet servlet-name", "同じservletが複数あります：{}");
         checkDuplicated(d, "servlet servlet-class", "同じservlet classが複数あります：{}");
+    }
+
+    private void parseServletInitParams(Document d){
+        Elements servletClassNameElements = d.select("servlet-class");
+        for(Element servletClassNameElement : servletClassNameElements){
+            String servletClassName = servletClassNameElement.text();
+            Elements initElements = servletClassNameElement.parent().select("init-param");
+            if(initElements.isEmpty()){
+                continue;
+            }
+            Map<String, String> initParams = new HashMap<>();
+            for(Element element : initElements){
+                String name = element.select("param-name").get(0).text();
+                String value = element.select("param-value").get(0).text();
+                initParams.put(name, value);
+            }
+            servlet_className_init_params.put(servletClassName, initParams);
+        }
     }
 
     public boolean isReloadable(){

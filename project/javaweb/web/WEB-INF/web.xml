@@ -3,6 +3,14 @@
     <servlet>
         <servlet-name>HelloServlet</servlet-name>
         <servlet-class>HelloServlet</servlet-class>
+        <init-param>
+            <param-name>author</param-name>
+            <param-value>zzy(servlet)</param-value>
+        </init-param>
+        <init-param>
+            <param-name>site</param-name>
+            <param-value>https://zy080080.github.io(servlet)</param-value>
+        </init-param>
     </servlet>
 
     <servlet-mapping>
