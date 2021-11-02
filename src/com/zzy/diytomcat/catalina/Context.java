@@ -16,6 +16,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import java.io.File;
 import java.util.*;
 
@@ -31,6 +33,8 @@ public class Context {
     private Map<String, String> url_servletName;
     private Map<String, String> servletName_className;
     private Map<String, String> className_servletName;
+
+    private Map<Class<?>, HttpServlet> servletPool;
 
     private WebappClassLoader webappClassLoader;
     private ContextFileChangeWatcher contextFileChangeWatcher;
@@ -48,6 +52,8 @@ public class Context {
         this.url_servletName = new HashMap<>();
         this.servletName_className = new HashMap<>();
         this.className_servletName = new HashMap<>();
+
+        this.servletPool = new HashMap<>();
 
         ClassLoader commonClassLoader = Thread.currentThread().getContextClassLoader();
         this.webappClassLoader = new WebappClassLoader(docBase, commonClassLoader);
@@ -89,6 +95,15 @@ public class Context {
 
     public void reload(){
         host.reload(this);
+    }
+
+    public synchronized HttpServlet getServlet(Class<?> clazz) throws InstantiationException, IllegalAccessException, ServletException {
+        HttpServlet servlet = servletPool.get(clazz);
+        if(null == servlet){
+            servlet = (HttpServlet) clazz.newInstance();
+            servletPool.put(clazz, servlet);
+        }
+        return servlet;
     }
 
     private void parseServletMapping(Document d) {

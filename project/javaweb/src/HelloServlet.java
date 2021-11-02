@@ -8,7 +8,7 @@ public class HelloServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try{
-            resp.getWriter().println("Hello DIY Tomcat from HelloServlet@javaweb");
+            resp.getWriter().println("Hello DIY Tomcat from HelloServlet@javaweb" + this);
 
         }catch(IOException e){
             e.printStackTrace();
