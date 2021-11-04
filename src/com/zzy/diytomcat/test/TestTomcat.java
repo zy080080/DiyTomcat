@@ -145,6 +145,12 @@ public class TestTomcat {
         Assert.assertEquals(html,"post name : zhiyong");
     }
 
+    @Test
+    public void testheader(){
+        String html = getContentString("/javaweb/header");
+        Assert.assertEquals(html, "zzy mini browser / java1.8");
+    }
+
     private byte[] getContentBytes(String uri){
         return getContentBytes(uri, false);
     }

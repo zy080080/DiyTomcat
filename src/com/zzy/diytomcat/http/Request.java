@@ -1,5 +1,6 @@
 package com.zzy.diytomcat.http;
 
+import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
@@ -11,11 +12,9 @@ import com.zzy.diytomcat.util.MiniBrowser;
 import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.net.Socket;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Request extends BaseRequest {
     // RequestをServletに渡すためにHttpServletRequestを継承する
@@ -27,11 +26,13 @@ public class Request extends BaseRequest {
     private String method;
     private String queryString;
     private Map<String, String[]> parameterMap;
+    private Map<String, String> headerMap;
 
     public Request(Socket socket, Service service) throws IOException {
         this.socket = socket;
         this.service = service;
         this.parameterMap = new HashMap<>();
+        this.headerMap = new HashMap<>();
         parseHttpRequest();
         if (StrUtil.isEmpty(requestString)) return;
         parseUri();
@@ -44,6 +45,7 @@ public class Request extends BaseRequest {
             if (StrUtil.isEmpty(uri)) uri = "/";
         }
         parseParameters();
+        parseHeaders();
     }
 
 
@@ -70,7 +72,7 @@ public class Request extends BaseRequest {
         byte[] bytes = MiniBrowser.readBytes(inputStream, false);
         requestString = new String(bytes, "utf-8");
         /**
-         * 例：
+         * 例： requestString
          * GET /b/index.html HTTP/1.1
          * Host: 127.0.0.1:18080
          * Upgrade-Insecure-Requests: 1
@@ -80,6 +82,9 @@ public class Request extends BaseRequest {
          * Accept - Language:zh - cn
          * Accept - Encoding:gzip, deflate
          * Connection:keep - alive
+         *
+         * parameter=value
+         * parameter=value
          */
     }
 
@@ -132,6 +137,33 @@ public class Request extends BaseRequest {
 
     public String[] getParameterValues(String name) {
         return parameterMap.get(name);
+    }
+
+    public String getHeader(String name){
+        if(null == name){
+            return null;
+        }
+        name = name.toLowerCase();
+        return headerMap.get(name);
+    }
+
+    public Enumeration getHeaderNames(){
+        Set keys = headerMap.keySet();
+        return Collections.enumeration(keys);
+    }
+
+    public void parseHeaders(){
+        StringReader stringReader = new StringReader(requestString);
+        List<String> lines = new ArrayList<>();
+        IoUtil.readLines(stringReader, lines);
+        for(int i = 1; i < lines.size(); i++){
+            String line = lines.get(i);
+            if(0 == line.length()) break;
+            String[] segs = line.split(":");
+            String headerName = segs[0].toLowerCase();
+            String headerValue = segs[1];
+            headerMap.put(headerName, headerValue);
+        }
     }
 
     private void parseUri() {
