@@ -18,4 +18,14 @@
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/hello</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ParamServlet</servlet-name>
+        <servlet-class>ParamServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ParamServlet</servlet-name>
+        <url-pattern>/param</url-pattern>
+    </servlet-mapping>
 </web-app>
