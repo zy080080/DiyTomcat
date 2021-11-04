@@ -13,6 +13,7 @@ import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.*;
 
@@ -139,26 +140,26 @@ public class Request extends BaseRequest {
         return parameterMap.get(name);
     }
 
-    public String getHeader(String name){
-        if(null == name){
+    public String getHeader(String name) {
+        if (null == name) {
             return null;
         }
         name = name.toLowerCase();
         return headerMap.get(name);
     }
 
-    public Enumeration getHeaderNames(){
+    public Enumeration getHeaderNames() {
         Set keys = headerMap.keySet();
         return Collections.enumeration(keys);
     }
 
-    public void parseHeaders(){
+    public void parseHeaders() {
         StringReader stringReader = new StringReader(requestString);
         List<String> lines = new ArrayList<>();
         IoUtil.readLines(stringReader, lines);
-        for(int i = 1; i < lines.size(); i++){
+        for (int i = 1; i < lines.size(); i++) {
             String line = lines.get(i);
-            if(0 == line.length()) break;
+            if (0 == line.length()) break;
             String[] segs = line.split(":");
             String headerName = segs[0].toLowerCase();
             String headerValue = segs[1];
@@ -205,5 +206,81 @@ public class Request extends BaseRequest {
     @Override
     public String getMethod() {
         return method;
+    }
+
+    public String getLocalAddr() {
+        return socket.getLocalAddress().getHostAddress();
+    }
+
+    public String getLocalName() {
+        return socket.getLocalAddress().getHostName();
+    }
+
+    public int getLocalPort() {
+        return socket.getLocalPort();
+    }
+
+    public String getProtocol() {
+        return "HTTP:/1.1";
+    }
+
+    public String getRemoteAddr() {
+        InetSocketAddress isa = (InetSocketAddress) socket.getRemoteSocketAddress();
+        String temp = isa.getAddress().toString();
+        return StrUtil.subAfter(temp, "/", false);
+    }
+
+    public String getRemoteHost() {
+        InetSocketAddress isa = (InetSocketAddress) socket.getRemoteSocketAddress();
+        return isa.getHostName();
+    }
+
+    public int getRemotePort() {
+        return socket.getPort();
+    }
+
+    public String getScheme() {
+        return "http";
+    }
+
+    public String getServerName() {
+        return getHeader("host").trim();
+    }
+
+    public int getServerPort() {
+        return getLocalPort();
+    }
+
+    public String getContextPath() {
+        String result = this.context.getPath();
+        if ("/".equals(result))
+            return "";
+        return result;
+    }
+
+    public String getRequestURI() {
+        return uri;
+    }
+
+    public StringBuffer getRequestURL() {
+        StringBuffer url = new StringBuffer();
+        String scheme = getScheme();
+        int port = getServerPort();
+        if (port < 0) {
+            port = 80; // Work around java.net.URL bug
+        }
+        url.append(scheme);
+        url.append("://");
+        url.append(getServerName());
+        if ((scheme.equals("http") && (port != 80)) || (scheme.equals("https") && (port != 443))) {
+            url.append(':');
+            url.append(port);
+        }
+        url.append(getRequestURI());
+        return url;
+    }
+
+    public String getServletPath() {
+        return uri;
     }
 }
