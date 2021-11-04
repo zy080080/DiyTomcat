@@ -38,6 +38,7 @@ public class Context {
     private Map<String, Map<String, String>> servlet_className_init_params;
 
     private Map<Class<?>, HttpServlet> servletPool;
+    private List<String> loadOnStartupServletClassNames;
 
     private WebappClassLoader webappClassLoader;
     private ContextFileChangeWatcher contextFileChangeWatcher;
@@ -58,6 +59,7 @@ public class Context {
         this.servlet_className_init_params = new HashMap<>();
 
         this.servletPool = new HashMap<>();
+        this.loadOnStartupServletClassNames = new ArrayList<>();
 
         ClassLoader commonClassLoader = Thread.currentThread().getContextClassLoader();
         this.webappClassLoader = new WebappClassLoader(docBase, commonClassLoader);
@@ -91,6 +93,8 @@ public class Context {
         Document d = Jsoup.parse(xml);
         parseServletMapping(d);
         parseServletInitParams(d);
+        parseLoadOnStartup(d);
+        handleLoadOnStartup();
     }
 
     public void stop(){
@@ -122,6 +126,25 @@ public class Context {
         Collection<HttpServlet> servlets = servletPool.values();
         for(HttpServlet servlet : servlets){
             servlet.destroy();
+        }
+    }
+
+    public void parseLoadOnStartup(Document d){
+        Elements es = d.select("load-on-startup");
+        for(Element e : es){
+            String loadOnStartupServletClassName = e.parent().select("servlet-class").text();
+            loadOnStartupServletClassNames.add(loadOnStartupServletClassName);
+        }
+    }
+
+    public void handleLoadOnStartup(){
+        for(String loadOnStartupServletClassName : loadOnStartupServletClassNames){
+            try{
+                Class<?> clazz = webappClassLoader.loadClass(loadOnStartupServletClassName);
+                getServlet(clazz);
+            }catch(ClassNotFoundException | InstantiationException | IllegalAccessException | ServletException e){
+                e.printStackTrace();
+            }
         }
     }
 
