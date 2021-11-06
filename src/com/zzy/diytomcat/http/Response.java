@@ -1,8 +1,17 @@
 package com.zzy.diytomcat.http;
 
+import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateUtil;
+
+import javax.servlet.http.Cookie;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class Response extends BaseResponse {
     // 返却するHTML文書を保存
@@ -15,10 +24,44 @@ public class Response extends BaseResponse {
     private byte[] body;
     private int status;
 
+    private List<Cookie> cookies;
+
     public Response(){
         this.stringWriter = new StringWriter();
         this.printWriter = new PrintWriter(stringWriter);
         this.contentType = "text/html";
+        this.cookies = new ArrayList<>();
+    }
+
+    public byte[] getBody() throws UnsupportedEncodingException{
+        if(null == body){
+            String content = stringWriter.toString();
+            body = content.getBytes();
+        }
+        return body;
+    }
+
+    public String getCookiesHeader(){
+        if(null == cookies) return "";
+        String pattern = "EEE, d MMM yyy HH:mm:ss 'GMT'";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.ENGLISH);
+        StringBuffer sb = new StringBuffer();
+        for(Cookie cookie : getCookies()){
+            sb.append("\r\n");
+            sb.append("Set-Cookie: ");
+            sb.append(cookie.getName() + "=" + cookie.getValue() + ";");
+            if(-1 != cookie.getMaxAge()){// -1 indicates that the cookie will persist until browser shutdown.
+                sb.append("Expires=");
+                Date now = new Date();
+                Date expire = DateUtil.offset(now, DateField.MINUTE, cookie.getMaxAge());
+                sb.append(sdf.format(expire));
+                sb.append(";");
+            }
+            if(null != cookie.getPath()){
+                sb.append("Path=" + cookie.getPath());
+            }
+        }
+        return sb.toString();
     }
 
     public String getContentType(){
@@ -37,14 +80,6 @@ public class Response extends BaseResponse {
         this.body = body;
     }
 
-    public byte[] getBody() throws UnsupportedEncodingException{
-        if(null == body){
-            String content = stringWriter.toString();
-            body = content.getBytes();
-        }
-        return body;
-    }
-
     @Override
     public int getStatus() {
         return status;
@@ -53,5 +88,13 @@ public class Response extends BaseResponse {
     @Override
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public void addCookie(Cookie cookie){
+        cookies.add(cookie);
+    }
+
+    public List<Cookie> getCookies(){
+        return this.cookies;
     }
 }

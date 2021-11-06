@@ -14,6 +14,7 @@ import java.util.Set;
 public class MiniBrowser {
     public static void main(String[] args) {
         String url = "http://static.how2j.cn/diytomcat.html";
+        url = "http://localhost:18080/javaweb/setCookie";
         String contentString = getContentString(url, false);
         System.out.println(contentString);
         String httpString = getHttpString(url, false);

@@ -151,6 +151,12 @@ public class TestTomcat {
         Assert.assertEquals(html, "zzy mini browser / java1.8");
     }
 
+    @Test
+    public void testsetCookie(){
+        String html = getHttpString("/javaweb/setCookie");
+        containAssert(html, "Set-Cookie: name=zhiyong(cookie);Expires=");
+    }
+
     private byte[] getContentBytes(String uri){
         return getContentBytes(uri, false);
     }
