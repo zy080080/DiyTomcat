@@ -10,6 +10,7 @@ import com.zzy.diytomcat.catalina.Service;
 import com.zzy.diytomcat.util.MiniBrowser;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -28,6 +29,7 @@ public class Request extends BaseRequest {
     private String queryString;
     private Map<String, String[]> parameterMap;
     private Map<String, String> headerMap;
+    private Cookie[] cookies;
 
     public Request(Socket socket, Service service) throws IOException {
         this.socket = socket;
@@ -47,6 +49,7 @@ public class Request extends BaseRequest {
         }
         parseParameters();
         parseHeaders();
+        parseCookies();
     }
 
 
@@ -128,18 +131,6 @@ public class Request extends BaseRequest {
         }
     }
 
-    public Map getParameterMap() {
-        return parameterMap;
-    }
-
-    public Enumeration getParameterNames() {
-        return Collections.enumeration(parameterMap.keySet());
-    }
-
-    public String[] getParameterValues(String name) {
-        return parameterMap.get(name);
-    }
-
     public String getHeader(String name) {
         if (null == name) {
             return null;
@@ -177,6 +168,71 @@ public class Request extends BaseRequest {
         }
         temp = StrUtil.subBefore(temp, '?', false);
         uri = temp;
+    }
+
+    public String getRemoteAddr() {
+        InetSocketAddress isa = (InetSocketAddress) socket.getRemoteSocketAddress();
+        String temp = isa.getAddress().toString();
+        return StrUtil.subAfter(temp, "/", false);
+    }
+
+    public String getRemoteHost() {
+        InetSocketAddress isa = (InetSocketAddress) socket.getRemoteSocketAddress();
+        return isa.getHostName();
+    }
+
+    public String getContextPath() {
+        String result = this.context.getPath();
+        if ("/".equals(result))
+            return "";
+        return result;
+    }
+
+    public StringBuffer getRequestURL() {
+        StringBuffer url = new StringBuffer();
+        String scheme = getScheme();
+        int port = getServerPort();
+        if (port < 0) {
+            port = 80; // Work around java.net.URL bug
+        }
+        url.append(scheme);
+        url.append("://");
+        url.append(getServerName());
+        if ((scheme.equals("http") && (port != 80)) || (scheme.equals("https") && (port != 443))) {
+            url.append(':');
+            url.append(port);
+        }
+        url.append(getRequestURI());
+        return url;
+    }
+
+    private void parseCookies(){
+        List<Cookie> cookieList = new ArrayList<>();
+        String cookies = headerMap.get("cookie");
+        if(null != cookies){
+            String[] pairs = StrUtil.split(cookies, ";");
+            for(String pair : pairs){
+                if(StrUtil.isBlank(pair)) continue;
+                String[] segs = StrUtil.split(pair, "=");
+                String name = segs[0].trim();
+                String value = segs[1].trim();
+                Cookie cookie = new Cookie(name, value);
+                cookieList.add(cookie);
+            }
+        }
+        this.cookies = ArrayUtil.toArray(cookieList, Cookie.class);
+    }
+
+    public Map getParameterMap() {
+        return parameterMap;
+    }
+
+    public Enumeration getParameterNames() {
+        return Collections.enumeration(parameterMap.keySet());
+    }
+
+    public String[] getParameterValues(String name) {
+        return parameterMap.get(name);
     }
 
     public ServletContext getServletContext() {
@@ -224,17 +280,6 @@ public class Request extends BaseRequest {
         return "HTTP:/1.1";
     }
 
-    public String getRemoteAddr() {
-        InetSocketAddress isa = (InetSocketAddress) socket.getRemoteSocketAddress();
-        String temp = isa.getAddress().toString();
-        return StrUtil.subAfter(temp, "/", false);
-    }
-
-    public String getRemoteHost() {
-        InetSocketAddress isa = (InetSocketAddress) socket.getRemoteSocketAddress();
-        return isa.getHostName();
-    }
-
     public int getRemotePort() {
         return socket.getPort();
     }
@@ -251,36 +296,15 @@ public class Request extends BaseRequest {
         return getLocalPort();
     }
 
-    public String getContextPath() {
-        String result = this.context.getPath();
-        if ("/".equals(result))
-            return "";
-        return result;
-    }
-
     public String getRequestURI() {
         return uri;
     }
 
-    public StringBuffer getRequestURL() {
-        StringBuffer url = new StringBuffer();
-        String scheme = getScheme();
-        int port = getServerPort();
-        if (port < 0) {
-            port = 80; // Work around java.net.URL bug
-        }
-        url.append(scheme);
-        url.append("://");
-        url.append(getServerName());
-        if ((scheme.equals("http") && (port != 80)) || (scheme.equals("https") && (port != 443))) {
-            url.append(':');
-            url.append(port);
-        }
-        url.append(getRequestURI());
-        return url;
-    }
-
     public String getServletPath() {
         return uri;
+    }
+
+    public Cookie[] getCookies(){
+        return cookies;
     }
 }

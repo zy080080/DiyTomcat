@@ -48,4 +48,14 @@
         <servlet-name>SetCookieServlet</servlet-name>
         <url-pattern>/setCookie</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetCookieServlet</servlet-name>
+        <servlet-class>GetCookieServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetCookieServlet</servlet-name>
+        <url-pattern>/getCookie</url-pattern>
+    </servlet-mapping>
 </web-app>
