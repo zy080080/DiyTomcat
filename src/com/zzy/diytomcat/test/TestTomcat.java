@@ -29,32 +29,32 @@ public class TestTomcat {
         if (NetUtil.isUsableLocalPort(port)) {
             System.err.println("ユニットテストのために，" + port + "番号のポートを使用するDiyTomcatを起動してください。");
             System.exit(1);
-        }else{
+        } else {
             System.out.println("DiyTomcatの起動状態を確認しました。ユニットテストを始めます。");
         }
     }
 
     @Test
-    public void testHelloTomcat(){
+    public void testHelloTomcat() {
         String html = getContentString("/");
         Assert.assertEquals(html, "Hello DIY Tomcat from zzy");
     }
 
     @Test
-    public void testaHtml(){
+    public void testaHtml() {
         String html = getContentString("/a.html");
         Assert.assertEquals(html, "Hello DIY Tomcat from a.html");
     }
 
     @Test
-    public void testTimeConsumeHtml() throws InterruptedException{
+    public void testTimeConsumeHtml() throws InterruptedException {
         ThreadPoolExecutor threadPool = new ThreadPoolExecutor(20, 20, 60,
                 TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(10));
         TimeInterval timeInterval = DateUtil.timer();
 
-        for(int i = 0; i < 3; i++){
-            threadPool.execute(new Runnable(){
-                public void run(){
+        for (int i = 0; i < 3; i++) {
+            threadPool.execute(new Runnable() {
+                public void run() {
                     getContentString("/timeConsume.html");
                 }
             });
@@ -67,38 +67,38 @@ public class TestTomcat {
     }
 
     @Test
-    public void testaIndex(){
+    public void testaIndex() {
 //        String html = getContentString("/a/index.html");
         String html = getContentString("/a");
         Assert.assertEquals(html, "Hello DIY Tomcat from index.html@a");
     }
 
     @Test
-    public void testbIndex(){
+    public void testbIndex() {
         String html = getContentString("/b");
         Assert.assertEquals(html, "Hello DIY Tomcat from index.html@b");
     }
 
     @Test
-    public void test404(){
+    public void test404() {
         String response = getHttpString("/not_exist.html");
         containAssert(response, "HTTP/1.1 404 Not Found");
     }
 
     @Test
-    public void test500(){
+    public void test500() {
         String response = getHttpString("/500.html");
         containAssert(response, "HTTP/1.1 500 Internal Server Error");
     }
 
     @Test
-    public void testaTxt(){
+    public void testaTxt() {
         String response = getHttpString("/a.txt");
         containAssert(response, "Content-Type: text/plain");
     }
 
     @Test
-    public void testPNG(){
+    public void testPNG() {
         byte[] bytes = getContentBytes("/sample.png");
         int pngFileLength = 1157741;
         Assert.assertEquals(pngFileLength, bytes.length);
@@ -112,26 +112,26 @@ public class TestTomcat {
     }
 
     @Test
-    public void testhello(){
+    public void testhello() {
         String html = getContentString("/j2ee/hello");
         Assert.assertEquals(html, "Hello DIY Tomcat from HelloServlet");
     }
 
     @Test
-    public void testJavawebHello(){
+    public void testJavawebHello() {
         String html = getContentString("/javaweb/hello");
         containAssert(html, "Hello DIY Tomcat from HelloServlet@javaweb");
     }
 
     @Test
-    public void testJavawebHelloSingleton(){
+    public void testJavawebHelloSingleton() {
         String html1 = getContentString("/javaweb/hello");
         String html2 = getContentString("/javaweb/hello");
         Assert.assertEquals(html1, html2);
     }
 
     @Test
-    public void testgetParam(){
+    public void testgetParam() {
         String uri = "/javaweb/param";
         String url = StrUtil.format("http://{}:{}{}", ip, port, uri);
         Map<String, Object> params = new HashMap<>();
@@ -141,61 +141,75 @@ public class TestTomcat {
     }
 
     @Test
-    public void testpostParam(){
+    public void testpostParam() {
         String uri = "/javaweb/param";
-        String url = StrUtil.format("http://{}:{}{}", ip,port,uri);
-        Map<String,Object> params = new HashMap<>();
-        params.put("name","zhiyong");
+        String url = StrUtil.format("http://{}:{}{}", ip, port, uri);
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", "zhiyong");
         String html = MiniBrowser.getContentString(url, params, false);
-        Assert.assertEquals(html,"post name : zhiyong");
+        Assert.assertEquals(html, "post name : zhiyong");
     }
 
     @Test
-    public void testheader(){
+    public void testheader() {
         String html = getContentString("/javaweb/header");
         Assert.assertEquals(html, "zzy mini browser / java1.8");
     }
 
     @Test
-    public void testsetCookie(){
+    public void testsetCookie() {
         String html = getHttpString("/javaweb/setCookie");
         containAssert(html, "Set-Cookie: name=zhiyong(cookie);Expires=");
     }
 
     @Test
-    public void testgetCookie() throws IOException{
-        String url = StrUtil.format("http://{}:{}{}", ip,port,"/javaweb/getCookie");
+    public void testgetCookie() throws IOException {
+        String url = StrUtil.format("http://{}:{}{}", ip, port, "/javaweb/getCookie");
         URL u = new URL(url);
         HttpURLConnection conn = (HttpURLConnection) u.openConnection();
-        conn.setRequestProperty("cookie","name=zzy(cookie)");
+        conn.setRequestProperty("cookie", "name=zzy(cookie)");
         conn.connect();
         InputStream is = conn.getInputStream();
         String html = IoUtil.read(is, "utf-8");
-        containAssert(html,"name:zzy(cookie)");
+        containAssert(html, "name:zzy(cookie)");
     }
 
-    private byte[] getContentBytes(String uri){
+    @Test
+    public void testSession() throws IOException {
+        String jsessionid = getContentString("/javaweb/setSession");
+        if (null != jsessionid) jsessionid = jsessionid.trim();
+        String url = StrUtil.format("http://{}:{}{}", ip, port, "/javaweb/getSession");
+        URL u = new URL(url);
+        HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+        conn.setRequestProperty("Cookie", "JSESSIONID=" + jsessionid);
+        conn.connect();
+        InputStream is = conn.getInputStream();
+        String html = IoUtil.read(is, "utf-8");
+        containAssert(html,"zzy(session)");
+    }
+
+    private byte[] getContentBytes(String uri) {
         return getContentBytes(uri, false);
     }
 
-    private byte[] getContentBytes(String uri, boolean zip){
+    private byte[] getContentBytes(String uri, boolean zip) {
         String url = StrUtil.format("http://{}:{}{}", ip, port, uri);
         return MiniBrowser.getContentBytes(url, false);
     }
 
-    private String getContentString(String uri){
+    private String getContentString(String uri) {
         String url = StrUtil.format("http://{}:{}{}", ip, port, uri);
         String content = MiniBrowser.getContentString(url);
         return content;
     }
 
-    private String getHttpString(String uri){
+    private String getHttpString(String uri) {
         String url = StrUtil.format("http://{}:{}{}", ip, port, uri);
         String http = MiniBrowser.getHttpString(url);
         return http;
     }
 
-    private void containAssert(String html, String string){
+    private void containAssert(String html, String string) {
         boolean match = StrUtil.containsAny(html, string);
         Assert.assertTrue(match);
     }

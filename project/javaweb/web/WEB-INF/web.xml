@@ -58,4 +58,24 @@
         <servlet-name>GetCookieServlet</servlet-name>
         <url-pattern>/getCookie</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SetSessionServlet</servlet-name>
+        <servlet-class>SetSessionServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SetSessionServlet</servlet-name>
+        <url-pattern>/setSession</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetSessionServlet</servlet-name>
+        <servlet-class>GetSessionServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetSessionServlet</servlet-name>
+        <url-pattern>/getSession</url-pattern>
+    </servlet-mapping>
 </web-app>

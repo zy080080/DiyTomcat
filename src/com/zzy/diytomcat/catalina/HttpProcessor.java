@@ -11,9 +11,11 @@ import com.zzy.diytomcat.http.Response;
 import com.zzy.diytomcat.servlets.DefaultServlet;
 import com.zzy.diytomcat.servlets.InvokerServlet;
 import com.zzy.diytomcat.util.Constant;
+import com.zzy.diytomcat.util.SessionManager;
 import com.zzy.diytomcat.util.WebXMLUtil;
 import com.zzy.diytomcat.webappservlet.HelloServlet;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -24,6 +26,8 @@ public class HttpProcessor {
         try {
             String uri = request.getUri();
             if (null == uri) return;
+
+            prepareSession(request, response);
 
             Context context = request.getContext();
             String servletClassName = context.getServletClassName(uri);
@@ -105,5 +109,11 @@ public class HttpProcessor {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
+    }
+
+    public void prepareSession(Request request, Response response){
+        String jsessionid = request.getJSessionIdFromCookie();
+        HttpSession session = SessionManager.getSession(jsessionid, request, response);
+        request.setSession(session);
     }
 }
