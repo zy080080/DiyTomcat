@@ -11,6 +11,7 @@ import com.zzy.diytomcat.http.Request;
 import com.zzy.diytomcat.http.Response;
 import com.zzy.diytomcat.servlets.DefaultServlet;
 import com.zzy.diytomcat.servlets.InvokerServlet;
+import com.zzy.diytomcat.servlets.JspServlet;
 import com.zzy.diytomcat.util.Constant;
 import com.zzy.diytomcat.util.SessionManager;
 import com.zzy.diytomcat.util.WebXMLUtil;
@@ -35,6 +36,8 @@ public class HttpProcessor {
 
             if (null != servletClassName) {
                 InvokerServlet.getInstance().service(request, response);
+            } else if (uri.endsWith(".jsp")) {
+                JspServlet.getInstance().service(request, response);
             } else {
                 DefaultServlet.getInstance().service(request, response);
             }
@@ -85,7 +88,7 @@ public class HttpProcessor {
         return false;
     }
 
-    private static void handle200(Socket s,Request request, Response response) throws IOException {
+    private static void handle200(Socket s, Request request, Response response) throws IOException {
         OutputStream os = s.getOutputStream();
         String contentType = response.getContentType();
 
@@ -94,14 +97,14 @@ public class HttpProcessor {
 
         boolean gzip = isGzip(request, body, contentType);
         String headText;
-        if(gzip){
+        if (gzip) {
             headText = Constant.response_head_202_gzip;
-        }else{
+        } else {
             headText = Constant.response_head_202;
         }
 
         headText = StrUtil.format(headText, contentType, cookiesHeader);
-        if(gzip){
+        if (gzip) {
             body = ZipUtil.gzip(body);
         }
 

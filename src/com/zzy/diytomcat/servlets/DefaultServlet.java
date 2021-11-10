@@ -40,6 +40,12 @@ public class DefaultServlet extends HttpServlet {
             uri = WebXMLUtil.getWelcomeFile(request.getContext());
         }
 
+        //  "/"を訪問し，かつwelcomeファイルがjspのとき，JspServletに任せる。
+        if(uri.endsWith(".jsp")){
+            JspServlet.getInstance().service(request, response);
+            return;
+        }
+
         String fileName = StrUtil.removePrefix(uri, "/");
         File file = FileUtil.file(request.getRealPath(fileName));
 

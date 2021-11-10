@@ -197,6 +197,12 @@ public class TestTomcat {
         Assert.assertEquals(html, "Hello DIY Tomcat from zzy");
     }
 
+    @Test
+    public void testJsp(){
+        String html = getContentString("/javaweb/");
+        Assert.assertEquals(html, "hello jsp@javaweb");
+    }
+
     private byte[] getContentBytes(String uri) {
         return getContentBytes(uri, false);
     }
