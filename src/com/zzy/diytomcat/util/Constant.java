@@ -58,5 +58,6 @@ public class Constant {
             + "<p>Stacktrace:</p>" + "<pre>{}</pre>" + "<HR size='1' noshade='noshade'><h3>DiyTocmat 1.0.1</h3>"
             + "</body></html>";
 
-
+    // Tomcatのロジックによると、jspが.javaファイルに変換されると、%TOMCAT_HOME%/のworkディレクトリに格納される。
+    public static final String workFolder = SystemUtil.get("user.dir") + File.separator + "work";
 }
