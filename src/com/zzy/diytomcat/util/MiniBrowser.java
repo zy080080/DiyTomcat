@@ -29,16 +29,16 @@ public class MiniBrowser {
         return getContentString(url, false, null, true);
     }
 
-    public static byte[] getContentBytes(String url, Map<String,Object> params, boolean isGet) {
-        return getContentBytes(url, false,params,isGet);
+    public static byte[] getContentBytes(String url, Map<String, Object> params, boolean isGet) {
+        return getContentBytes(url, false, params, isGet);
     }
 
     public static byte[] getContentBytes(String url, boolean gzip) {
-        return getContentBytes(url, gzip,null,true);
+        return getContentBytes(url, gzip, null, true);
     }
 
     public static byte[] getContentBytes(String url) {
-        return getContentBytes(url, false,null,true);
+        return getContentBytes(url, false, null, true);
     }
 
     public static String getContentString(String url, Map<String, Object> params, boolean isGet) {

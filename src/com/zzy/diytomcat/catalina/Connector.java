@@ -13,16 +13,17 @@ public class Connector implements Runnable {
     int port;
     private Service service;
 
+    // compression=on:gzip圧縮を有効にする
+    private String compression;
+    // 出力が圧縮される前に最小限のデータ量を指定する
+    private int compressionMinSize;
+    // 圧縮を使用しないHTTPクライアント
+    private String noCompressionUserAgents;
+    // HTTP圧縮が使用されるMIMEタイプ
+    private String compressableMimeType;
+
     public Connector(Service service) {
         this.service = service;
-    }
-
-    public Service getService() {
-        return service;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
     }
 
     @Override
@@ -36,7 +37,7 @@ public class Connector implements Runnable {
                     @Override
                     public void run() {
                         try {
-                            Request request = new Request(s, service);
+                            Request request = new Request(s, Connector.this);
                             Response response = new Response();
                             HttpProcessor processor = new HttpProcessor();
                             processor.execute(s, request, response);
@@ -67,5 +68,45 @@ public class Connector implements Runnable {
     public void start() {
         LogFactory.get().info("Starting ProtocolHandler [http-bio-{}", port);
         new Thread(this).start();
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public String getCompression() {
+        return compression;
+    }
+
+    public void setCompression(String compression) {
+        this.compression = compression;
+    }
+
+    public int getCompressionMinSize() {
+        return compressionMinSize;
+    }
+
+    public void setCompressionMinSize(int compressionMinSize) {
+        this.compressionMinSize = compressionMinSize;
+    }
+
+    public String getNoCompressionUserAgent() {
+        return noCompressionUserAgents;
+    }
+
+    public void setNoCompressionUserAgents(String noCompressionUserAgents) {
+        this.noCompressionUserAgents = noCompressionUserAgents;
+    }
+
+    public String getCompressableMimeType() {
+        return compressableMimeType;
+    }
+
+    public void setCompressableMimeType(String compressableMimeType) {
+        this.compressableMimeType = compressableMimeType;
     }
 }

@@ -4,6 +4,7 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
+import com.zzy.diytomcat.catalina.Connector;
 import com.zzy.diytomcat.catalina.Context;
 import com.zzy.diytomcat.catalina.Engine;
 import com.zzy.diytomcat.catalina.Service;
@@ -25,7 +26,8 @@ public class Request extends BaseRequest {
     private String uri;
     private Socket socket;
     private Context context;
-    private Service service;
+//    private Service service;
+    private Connector connector;
     private String method;
     private String queryString;
     private Map<String, String[]> parameterMap;
@@ -33,9 +35,9 @@ public class Request extends BaseRequest {
     private Cookie[] cookies;
     private HttpSession session;
 
-    public Request(Socket socket, Service service) throws IOException {
+    public Request(Socket socket, Connector connector) throws IOException {
         this.socket = socket;
-        this.service = service;
+        this.connector = connector;
         this.parameterMap = new HashMap<>();
         this.headerMap = new HashMap<>();
         parseHttpRequest();
@@ -56,6 +58,7 @@ public class Request extends BaseRequest {
 
 
     private void parseContext() {
+        Service service = connector.getService();
         Engine engine = service.getEngine();
         context = engine.getDefaultHost().getContext(uri);
         if (null != context) return;
@@ -328,5 +331,9 @@ public class Request extends BaseRequest {
 
     public void setSession(HttpSession session) {
         this.session = session;
+    }
+
+    public Connector getConnector() {
+        return connector;
     }
 }

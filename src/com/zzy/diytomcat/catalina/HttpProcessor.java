@@ -5,6 +5,7 @@ import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.ZipUtil;
 import cn.hutool.log.LogFactory;
 import com.zzy.diytomcat.http.Request;
 import com.zzy.diytomcat.http.Response;
@@ -39,7 +40,7 @@ public class HttpProcessor {
             }
 
             if (Constant.CODE_200 == response.getStatus()) {
-                handle200(s, response);
+                handle200(s, request, response);
                 return;
             }
             if (Constant.CODE_404 == response.getStatus()) {
@@ -58,20 +59,57 @@ public class HttpProcessor {
         }
     }
 
-    private static void handle200(Socket s, Response response) throws IOException {
+    private static boolean isGzip(Request request, byte[] body, String mimeType) {
+        String acceptEncodings = request.getHeader("Accept-Encoding");
+        if (!StrUtil.containsAny(acceptEncodings, "gzip")) return false;
+
+        Connector connector = request.getConnector();
+        if (mimeType.contains(";")) mimeType = StrUtil.subBefore(mimeType, ";", false);
+        if (!"on".equals(connector.getCompression())) return false;
+        if (body.length < connector.getCompressionMinSize()) return false;
+
+        String userAgents = connector.getNoCompressionUserAgent();
+        String[] eachUserAgents = userAgents.split(",");
+        for (String eachUserAgent : eachUserAgents) {
+            eachUserAgent = eachUserAgent.trim();
+            String userAgent = request.getHeader("User-Agent");
+            if (StrUtil.containsAny(userAgent, eachUserAgent)) return false;
+        }
+
+        String mimeTypes = connector.getCompressableMimeType();
+        String[] eachMimeTypes = mimeTypes.split(",");
+        for (String eachMimeType : eachMimeTypes) {
+            if (mimeType.equals(eachMimeType)) return true;
+        }
+
+        return false;
+    }
+
+    private static void handle200(Socket s,Request request, Response response) throws IOException {
+        OutputStream os = s.getOutputStream();
         String contentType = response.getContentType();
-        String headText = Constant.response_head_202;
+
+        byte[] body = response.getBody();
         String cookiesHeader = response.getCookiesHeader();
+
+        boolean gzip = isGzip(request, body, contentType);
+        String headText;
+        if(gzip){
+            headText = Constant.response_head_202_gzip;
+        }else{
+            headText = Constant.response_head_202;
+        }
+
         headText = StrUtil.format(headText, contentType, cookiesHeader);
+        if(gzip){
+            body = ZipUtil.gzip(body);
+        }
 
         byte[] head = headText.getBytes();
-        byte[] body = response.getBody();
         byte[] responseBytes = new byte[head.length + body.length];
-
         ArrayUtil.copy(head, 0, responseBytes, 0, head.length);
         ArrayUtil.copy(body, 0, responseBytes, head.length, body.length);
 
-        OutputStream os = s.getOutputStream();
         os.write(responseBytes);
     }
 
@@ -111,7 +149,7 @@ public class HttpProcessor {
         }
     }
 
-    public void prepareSession(Request request, Response response){
+    public void prepareSession(Request request, Response response) {
         String jsessionid = request.getJSessionIdFromCookie();
         HttpSession session = SessionManager.getSession(jsessionid, request, response);
         request.setSession(session);
