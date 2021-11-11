@@ -2,9 +2,11 @@ package com.zzy.diytomcat.servlets;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
+import com.zzy.diytomcat.catalina.Context;
 import com.zzy.diytomcat.http.Request;
 import com.zzy.diytomcat.http.Response;
 import com.zzy.diytomcat.util.Constant;
+import com.zzy.diytomcat.util.JspUtil;
 import com.zzy.diytomcat.util.WebXMLUtil;
 
 import javax.servlet.ServletException;
@@ -40,15 +42,36 @@ public class JspServlet extends HttpServlet {
             String fileName = StrUtil.removePrefix(uri, "/");
             File file = FileUtil.file(request.getRealPath(fileName));
 
-            if (file.exists()) {
+            File jspFile = file;
+            // コンパイルタイミング
+            if (jspFile.exists()) {
+                Context context = request.getContext();
+                String path = context.getPath();
+                String subFolder;
+                if ("/".equals(path)) {
+                    // "_"はworkディレクトリを表す
+                    subFolder = "_";
+                } else {
+                    subFolder = StrUtil.subAfter(path, "/", false);
+                }
+                String servletClassPath = JspUtil.getServletClassPath(uri, subFolder);
+                File jspServletClassFile = new File(servletClassPath);
+                if (!jspServletClassFile.exists()) {
+                    // まだコンパイルされていないときはコンパイルする
+                    JspUtil.compileJsp(context, jspFile);
+                } else if (jspFile.lastModified() > jspServletClassFile.lastModified()) {
+                    // jspファイルが改修されたときはリコンパイルする
+                    JspUtil.compileJsp(context, jspFile);
+                }
+
                 String extName = FileUtil.extName(file);
                 String mimeType = WebXMLUtil.getMimeType(extName);
                 response.setContentType(mimeType);
 
                 byte[] body = FileUtil.readBytes(file);
                 response.setBody(body);
-
                 response.setStatus(Constant.CODE_200);
+
             } else {
                 response.setStatus(Constant.CODE_404);
             }

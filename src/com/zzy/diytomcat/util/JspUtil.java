@@ -18,9 +18,9 @@ public class JspUtil {
 
     public static void main(String[] args) {
         try {
-            Context context = new Context("/javaweb", "/Users/zhangzhiyong/Documents/DiyTomcat/project/javaweb/web", null,true);
+            Context context = new Context("/javaweb", "/Users/zhangzhiyong/Documents/DiyTomcat/project/javaweb/web", null, true);
             File file = new File("/Users/zhangzhiyong/Documents/DiyTomcat/project/javaweb/web/index.jsp");
-            compileJsp(context,file);
+            compileJsp(context, file);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -29,18 +29,18 @@ public class JspUtil {
     public static void compileJsp(Context context, File file) throws JasperException {
         String subFolder;
         String path = context.getPath();
-        if ("/".equals(path)) {
+        if ("/".equals(path))
             subFolder = "_";
-        } else {
-            subFolder = StrUtil.subAfter(path, "/", false);
-        }
+        else
+            subFolder = StrUtil.subAfter(path, '/', false);
 
         String workPath = new File(Constant.workFolder, subFolder).getAbsolutePath() + File.separator;
-        String[] args = new String[]{"-webapp", context.getDocBase().toLowerCase(), "-d", workPath.toLowerCase(), "-compile"};
+
+        String[] args = new String[]{"-webapp", context.getDocBase().toLowerCase(), "-d", workPath.toLowerCase(), "-compile",};
 
         JspC jspc = new JspC();
         jspc.setArgs(args);
-        jspc.execute();
+        jspc.execute(file);
     }
 
     public static final String makeJavaIdentifier(String identifier) {
