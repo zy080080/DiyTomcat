@@ -11,6 +11,8 @@ import com.zzy.diytomcat.http.ApplicationContext;
 import com.zzy.diytomcat.http.StandardServletConfig;
 import com.zzy.diytomcat.util.ContextXMLUtil;
 import com.zzy.diytomcat.watcher.ContextFileChangeWatcher;
+import org.apache.jasper.JspC;
+import org.apache.jasper.compiler.JspRuntimeContext;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -76,6 +78,9 @@ public class Context {
             contextFileChangeWatcher = new ContextFileChangeWatcher(this);
             contextFileChangeWatcher.start();
         }
+        JspC c = new JspC();
+        // jspから生成したJavaファイルの中のjavax.servlet.jsp.JspFactory.getDefaultFactory()で返却値が取れるために
+        new JspRuntimeContext(servletContext, c);
     }
 
     private void init() {
@@ -244,7 +249,7 @@ public class Context {
         this.docBase = docBase;
     }
 
-    public WebappClassLoader getWebappClassLoader() {
+    public WebappClassLoader getWebClassLoader() {
         return webappClassLoader;
     }
 

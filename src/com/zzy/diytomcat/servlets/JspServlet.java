@@ -3,6 +3,7 @@ package com.zzy.diytomcat.servlets;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.zzy.diytomcat.catalina.Context;
+import com.zzy.diytomcat.classloader.JspClassLoader;
 import com.zzy.diytomcat.http.Request;
 import com.zzy.diytomcat.http.Response;
 import com.zzy.diytomcat.util.Constant;
@@ -62,14 +63,20 @@ public class JspServlet extends HttpServlet {
                 } else if (jspFile.lastModified() > jspServletClassFile.lastModified()) {
                     // jspファイルが改修されたときはリコンパイルする
                     JspUtil.compileJsp(context, jspFile);
+                    JspClassLoader.invalidJspClassLoader(uri, context);
                 }
 
                 String extName = FileUtil.extName(file);
                 String mimeType = WebXMLUtil.getMimeType(extName);
                 response.setContentType(mimeType);
 
-                byte[] body = FileUtil.readBytes(file);
-                response.setBody(body);
+                JspClassLoader jspClassLoader = JspClassLoader.getJspClassLoader(uri, context);
+                String jspServletClassName = JspUtil.getJspServletClassName(uri, subFolder);
+                Class jspServletClass = jspClassLoader.loadClass(jspServletClassName);
+
+                HttpServlet servlet = context.getServlet(jspServletClass);
+                servlet.service(request, response);
+
                 response.setStatus(Constant.CODE_200);
 
             } else {

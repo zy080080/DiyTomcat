@@ -38,7 +38,7 @@ public class InvokerServlet extends HttpServlet {
         String servletClassName = context.getServletClassName(uri);
 
         try {
-            Class<?> servletClass = context.getWebappClassLoader().loadClass(servletClassName);
+            Class<?> servletClass = context.getWebClassLoader().loadClass(servletClassName);
             Object servletObject = context.getServlet(servletClass);
             ReflectUtil.invoke(servletObject, "service", request, response);
             response.setStatus(Constant.CODE_200);
