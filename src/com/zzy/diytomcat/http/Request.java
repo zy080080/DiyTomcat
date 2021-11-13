@@ -10,6 +10,7 @@ import com.zzy.diytomcat.catalina.Engine;
 import com.zzy.diytomcat.catalina.Service;
 import com.zzy.diytomcat.util.MiniBrowser;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
@@ -34,6 +35,7 @@ public class Request extends BaseRequest {
     private Map<String, String> headerMap;
     private Cookie[] cookies;
     private HttpSession session;
+    private boolean forwarded;
 
     public Request(Socket socket, Connector connector) throws IOException {
         this.socket = socket;
@@ -239,6 +241,10 @@ public class Request extends BaseRequest {
         return null;
     }
 
+    public RequestDispatcher getRequestDispatcher(String uri){
+        return new ApplicationRequestDispatcher(uri);
+    }
+
     public Map getParameterMap() {
         return parameterMap;
     }
@@ -269,6 +275,10 @@ public class Request extends BaseRequest {
 
     public String getUri() {
         return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     public String getRequestString() {
@@ -335,5 +345,17 @@ public class Request extends BaseRequest {
 
     public Connector getConnector() {
         return connector;
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public boolean isForwarded() {
+        return forwarded;
+    }
+
+    public void setForwarded(boolean forwarded) {
+        this.forwarded = forwarded;
     }
 }

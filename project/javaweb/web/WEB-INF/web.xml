@@ -88,4 +88,14 @@
         <servlet-name>ClientJumpServlet</servlet-name>
         <url-pattern>/jump1</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ServerJumpServlet</servlet-name>
+        <servlet-class>ServerJumpServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ServerJumpServlet</servlet-name>
+        <url-pattern>/jump2</url-pattern>
+    </servlet-mapping>
 </web-app>

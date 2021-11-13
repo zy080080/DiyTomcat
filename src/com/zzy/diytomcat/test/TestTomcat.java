@@ -211,6 +211,12 @@ public class TestTomcat {
         containAssert(http_jsp, "HTTP/1.1 302 Found");
     }
 
+    @Test
+    public void testServerJump(){
+        String http_servlet = getHttpString("/javaweb/jump2");
+        containAssert(http_servlet, "Hello DIY Tomcat from HelloServlet");
+    }
+
     private byte[] getContentBytes(String uri) {
         return getContentBytes(uri, false);
     }

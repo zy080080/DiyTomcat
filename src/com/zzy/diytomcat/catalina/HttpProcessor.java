@@ -42,12 +42,16 @@ public class HttpProcessor {
                 DefaultServlet.getInstance().service(request, response);
             }
 
+            if (request.isForwarded()) {
+                return;
+            }
+
             if (Constant.CODE_200 == response.getStatus()) {
                 handle200(s, request, response);
                 return;
             }
 
-            if(Constant.CODE_302 == response.getStatus()){
+            if (Constant.CODE_302 == response.getStatus()) {
                 handle302(s, response);
                 return;
             }
@@ -122,7 +126,7 @@ public class HttpProcessor {
         os.write(responseBytes);
     }
 
-    private void handle302(Socket s, Response response) throws IOException{
+    private void handle302(Socket s, Response response) throws IOException {
         OutputStream os = s.getOutputStream();
         String redirectPath = response.getRedirectPath();
         String head_text = Constant.response_head_302;
