@@ -46,6 +46,12 @@ public class HttpProcessor {
                 handle200(s, request, response);
                 return;
             }
+
+            if(Constant.CODE_302 == response.getStatus()){
+                handle302(s, response);
+                return;
+            }
+
             if (Constant.CODE_404 == response.getStatus()) {
                 handle404(s, uri);
                 return;
@@ -113,6 +119,15 @@ public class HttpProcessor {
         ArrayUtil.copy(head, 0, responseBytes, 0, head.length);
         ArrayUtil.copy(body, 0, responseBytes, head.length, body.length);
 
+        os.write(responseBytes);
+    }
+
+    private void handle302(Socket s, Response response) throws IOException{
+        OutputStream os = s.getOutputStream();
+        String redirectPath = response.getRedirectPath();
+        String head_text = Constant.response_head_302;
+        String header = StrUtil.format(head_text, redirectPath);
+        byte[] responseBytes = header.getBytes("utf-8");
         os.write(responseBytes);
     }
 

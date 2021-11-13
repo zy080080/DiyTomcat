@@ -78,4 +78,14 @@
         <servlet-name>GetSessionServlet</servlet-name>
         <url-pattern>/getSession</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ClientJumpServlet</servlet-name>
+        <servlet-class>ClientJumpServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ClientJumpServlet</servlet-name>
+        <url-pattern>/jump1</url-pattern>
+    </servlet-mapping>
 </web-app>

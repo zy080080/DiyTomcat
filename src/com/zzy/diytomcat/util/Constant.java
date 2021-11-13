@@ -58,6 +58,9 @@ public class Constant {
             + "<p>Stacktrace:</p>" + "<pre>{}</pre>" + "<HR size='1' noshade='noshade'><h3>DiyTocmat 1.0.1</h3>"
             + "</body></html>";
 
+    public static final String response_head_302 = "HTTP/1.1 302 Found\r\nLocation:{}\r\n\r\n";
+
     // Tomcatのロジックによると、jspが.javaファイルに変換されると、%TOMCAT_HOME%/のworkディレクトリに格納される。
     public static final String workFolder = SystemUtil.get("user.dir") + File.separator + "work";
+
 }

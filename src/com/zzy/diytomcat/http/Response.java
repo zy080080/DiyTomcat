@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUtil;
 
 import javax.servlet.http.Cookie;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
@@ -23,6 +24,7 @@ public class Response extends BaseResponse {
     private String contentType;
     private byte[] body;
     private int status;
+    private String redirectPath;
 
     private List<Cookie> cookies;
 
@@ -96,5 +98,13 @@ public class Response extends BaseResponse {
 
     public List<Cookie> getCookies(){
         return this.cookies;
+    }
+
+    public String getRedirectPath() {
+        return redirectPath;
+    }
+
+    public void sendRedirect(String redirect) throws IOException {
+        this.redirectPath = redirect;
     }
 }

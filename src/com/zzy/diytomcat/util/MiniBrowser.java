@@ -15,6 +15,7 @@ public class MiniBrowser {
     public static void main(String[] args) {
         String url = "http://static.how2j.cn/diytomcat.html";
         url = "http://localhost:18080/javaweb/setCookie";
+        url = "http://localhost:18080/javaweb/jump1.jsp";
         String contentString = getContentString(url, false);
         System.out.println(contentString);
         String httpString = getHttpString(url, false);
