@@ -214,7 +214,7 @@ public class TestTomcat {
     @Test
     public void testServerJump(){
         String http_servlet = getHttpString("/javaweb/jump2");
-        containAssert(http_servlet, "Hello DIY Tomcat from HelloServlet");
+        containAssert(http_servlet, "zzy redirect");
     }
 
     private byte[] getContentBytes(String uri) {

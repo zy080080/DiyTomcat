@@ -9,7 +9,8 @@ public class ServerJumpServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try{
-            req.getRequestDispatcher("hello").forward(req, resp);
+            req.setAttribute("name", "zzy redirect");
+            req.getRequestDispatcher("hello.jsp").forward(req, resp);
         }catch(ServletException e){
             e.printStackTrace();
         }

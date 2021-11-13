@@ -27,7 +27,7 @@ public class Request extends BaseRequest {
     private String uri;
     private Socket socket;
     private Context context;
-//    private Service service;
+    //    private Service service;
     private Connector connector;
     private String method;
     private String queryString;
@@ -36,12 +36,15 @@ public class Request extends BaseRequest {
     private Cookie[] cookies;
     private HttpSession session;
     private boolean forwarded;
+    // redirect parameter
+    private Map<String, Object> attributesMap;
 
     public Request(Socket socket, Connector connector) throws IOException {
         this.socket = socket;
         this.connector = connector;
         this.parameterMap = new HashMap<>();
         this.headerMap = new HashMap<>();
+        this.attributesMap = new HashMap<>();
         parseHttpRequest();
         if (StrUtil.isEmpty(requestString)) return;
         parseUri();
@@ -213,13 +216,13 @@ public class Request extends BaseRequest {
         return url;
     }
 
-    private void parseCookies(){
+    private void parseCookies() {
         List<Cookie> cookieList = new ArrayList<>();
         String cookies = headerMap.get("cookie");
-        if(null != cookies){
+        if (null != cookies) {
             String[] pairs = StrUtil.split(cookies, ";");
-            for(String pair : pairs){
-                if(StrUtil.isBlank(pair)) continue;
+            for (String pair : pairs) {
+                if (StrUtil.isBlank(pair)) continue;
                 String[] segs = StrUtil.split(pair, "=");
                 String name = segs[0].trim();
                 String value = segs[1].trim();
@@ -230,10 +233,10 @@ public class Request extends BaseRequest {
         this.cookies = ArrayUtil.toArray(cookieList, Cookie.class);
     }
 
-    public String getJSessionIdFromCookie(){
-        if(null == cookies) return null;
-        for(Cookie cookie : cookies){
-            if("JSESSIONID".equals(cookie.getName())){
+    public String getJSessionIdFromCookie() {
+        if (null == cookies) return null;
+        for (Cookie cookie : cookies) {
+            if ("JSESSIONID".equals(cookie.getName())) {
                 return cookie.getValue();
             }
         }
@@ -241,8 +244,25 @@ public class Request extends BaseRequest {
         return null;
     }
 
-    public RequestDispatcher getRequestDispatcher(String uri){
+    public RequestDispatcher getRequestDispatcher(String uri) {
         return new ApplicationRequestDispatcher(uri);
+    }
+
+    public void removeAttribute(String name) {
+        attributesMap.remove(name);
+    }
+
+    public void setAttribute(String name, Object value) {
+        attributesMap.put(name, value);
+    }
+
+    public Object getAttribute(String name) {
+        return attributesMap.get(name);
+    }
+
+    public Enumeration<String> getAttributeNames() {
+        Set<String> keys = attributesMap.keySet();
+        return Collections.enumeration(keys);
     }
 
     public Map getParameterMap() {
@@ -330,7 +350,7 @@ public class Request extends BaseRequest {
         return uri;
     }
 
-    public Cookie[] getCookies(){
+    public Cookie[] getCookies() {
         return cookies;
     }
 
