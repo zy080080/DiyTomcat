@@ -251,7 +251,7 @@ public class Context {
             if (initElements.isEmpty()) continue;
 
             Map<String, String> initParams = new HashMap<>();
-            for(Element element : initElements){
+            for (Element element : initElements) {
                 String name = element.select("param-name").get(0).text();
                 String value = element.select("param-value").get(0).text();
                 initParams.put(name, value);
@@ -261,10 +261,10 @@ public class Context {
         }
     }
 
-    private void initFilter(){
+    private void initFilter() {
         Set<String> classNames = className_filterName.keySet();
-        for(String className : classNames){
-            try{
+        for (String className : classNames) {
+            try {
                 Class clazz = this.getWebClassLoader().loadClass(className);
                 Map<String, String> initParameters = filter_className_init_params.get(className);
                 String filterName = className_filterName.get(className);
@@ -272,15 +272,51 @@ public class Context {
                 FilterConfig filterConfig = new StandardFilterConfig(servletContext, filterName, initParameters);
 
                 Filter filter = filterPool.get(clazz);
-                if(null == filter){
+                if (null == filter) {
                     filter = (Filter) ReflectUtil.newInstance(clazz);
                     filter.init(filterConfig);
                     filterPool.put(className, filter);
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private boolean match(String pattern, String uri) {
+        if (StrUtil.equals(pattern, uri)) return true;
+        if (StrUtil.equals(pattern, "/")) return true;
+        if (StrUtil.startWith(pattern, "/")) {
+            String patternExtName = StrUtil.subAfter(pattern, '.', false);
+            String uriExtName = StrUtil.subAfter(uri, ".", false);
+            if (StrUtil.equals(patternExtName, uriExtName)) return true;
+        }
+
+        return false;
+    }
+
+    public List<Filter> getMatchedFilters(String uri){
+        List<Filter> filters = new ArrayList<>();
+        Set<String> patterns = url_filterClassName.keySet();
+        Set<String> matchedPatterns = new HashSet<>();
+        for(String pattern : patterns){
+            if(match(pattern, uri)){
+                matchedPatterns.add(pattern);
+            }
+        }
+
+        Set<String> matchedFilterClassNames = new HashSet<>();
+        for(String pattern : matchedPatterns){
+            List<String> filterClassName = url_filterClassName.get(pattern);
+            matchedFilterClassNames.addAll(filterClassName);
+        }
+
+        for(String filterClassName : matchedFilterClassNames){
+            Filter filter = filterPool.get(filterClassName);
+            filters.add(filter);
+        }
+
+        return filters;
     }
 
     private void checkDuplicated(Document d, String mapping, String desc) throws WebConfigDuplicatedException {
