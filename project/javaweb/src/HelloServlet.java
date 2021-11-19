@@ -21,7 +21,7 @@ public class HelloServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try{
-            System.out.println(this + " doGet()");
+//            System.out.println(this + " doGet()");
             resp.getWriter().println("Hello DIY Tomcat from HelloServlet@javaweb" + this);
 
         }catch(IOException e){
